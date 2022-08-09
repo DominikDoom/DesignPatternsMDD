@@ -5,7 +5,6 @@ import java.io.InputStream
 import java.nio.file.Path
 import java.util.*
 
-
 /**
  * Extension property for checking supported file types.
  * */

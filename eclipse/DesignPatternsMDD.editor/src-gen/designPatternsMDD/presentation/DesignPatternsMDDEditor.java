@@ -154,7 +154,9 @@ import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
 
 import designPatternsMDD.provider.DesignPatternsMDDItemProviderAdapterFactory;
+
 import designPatternsMDD.packages.provider.PackagesItemProviderAdapterFactory;
+
 import designPatternsMDD.patterns.provider.PatternsItemProviderAdapterFactory;
 
 import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;

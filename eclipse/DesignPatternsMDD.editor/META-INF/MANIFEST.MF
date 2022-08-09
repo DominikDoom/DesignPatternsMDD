@@ -9,8 +9,7 @@ Bundle-Activator: designPatternsMDD.presentation.DesignPatternsMDDEditorPlugin$I
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: designPatternsMDD.classes.presentation,
- designPatternsMDD.packages.presentation,
+Export-Package: designPatternsMDD.packages.presentation,
  designPatternsMDD.patterns.presentation,
  designPatternsMDD.presentation
 Require-Bundle: org.eclipse.core.runtime,
