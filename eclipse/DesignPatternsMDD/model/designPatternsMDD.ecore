@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="designPatternsMDD" nsURI="http://www.example.org/designPatternsMDD"
+    nsPrefix="designPatternsMDD">
+  <eClassifiers xsi:type="ecore:EClass" name="Root">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Packages" lowerBound="1"
+        eType="#//packages/PackagesRoot" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Patterns" lowerBound="1"
+        eType="#//patterns/PatternRoot" containment="true"/>
+  </eClassifiers>
+  <eSubpackages name="packages" nsURI="http://www.example.org/designPatternsMDD/packages"
+      nsPrefix="packages">
+    <eClassifiers xsi:type="ecore:EClass" name="PackagesRoot">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Contains the actual model to generate classes for. Classes specified here can then be referenced in the pattern properties to assign them to it."/>
+      </eAnnotations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="Packages" upperBound="-1"
+          eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EPackage"
+          containment="true"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="patterns" nsURI="http://www.example.org/designPatternsMDD/patterns"
+      nsPrefix="patterns">
+    <eClassifiers xsi:type="ecore:EClass" name="PatternRoot">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Contains all patterns to be generated for this project."/>
+      </eAnnotations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="observerPattern" eType="#//patterns/ObserverPattern"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="singletonPattern" eType="#//patterns/SingletonPattern"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="builderPattern" eType="#//patterns/BuilderPattern"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ObserverPattern">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ObseverPairs" lowerBound="1"
+          upperBound="-1" eType="#//patterns/ObserverPair" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="SingletonPattern">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="SingletonClasses" lowerBound="1"
+          upperBound="-1" eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="BuilderPattern">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="BuilderClasses" lowerBound="1"
+          upperBound="-1" eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ObserverPair">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="Observable" lowerBound="1"
+          eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="Observers" lowerBound="1"
+          upperBound="-1" eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+    </eClassifiers>
+  </eSubpackages>
+</ecore:EPackage>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/DesignPatternsMDD/src-gen" creationIcons="false"
+    editDirectory="/DesignPatternsMDD.edit/src-gen" editorDirectory="/DesignPatternsMDD.editor/src-gen"
+    modelPluginID="DesignPatternsMDD" modelName="DesignPatternsMDD" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false" usedGenPackages="../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore"
+    operationReflection="true" importOrganizing="true">
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="DesignPatternsMDD" disposableProviderFactory="true" ecorePackage="designPatternsMDD.ecore#/">
+    <genClasses ecoreClass="designPatternsMDD.ecore#//Root">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference designPatternsMDD.ecore#//Root/Packages"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference designPatternsMDD.ecore#//Root/Patterns"/>
+    </genClasses>
+    <nestedGenPackages prefix="Packages" disposableProviderFactory="true" ecorePackage="designPatternsMDD.ecore#//packages">
+      <genClasses ecoreClass="designPatternsMDD.ecore#//packages/PackagesRoot">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference designPatternsMDD.ecore#//packages/PackagesRoot/Packages"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Patterns" disposableProviderFactory="true" ecorePackage="designPatternsMDD.ecore#//patterns">
+      <genClasses ecoreClass="designPatternsMDD.ecore#//patterns/PatternRoot">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference designPatternsMDD.ecore#//patterns/PatternRoot/observerPattern"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference designPatternsMDD.ecore#//patterns/PatternRoot/singletonPattern"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference designPatternsMDD.ecore#//patterns/PatternRoot/builderPattern"/>
+      </genClasses>
+      <genClasses ecoreClass="designPatternsMDD.ecore#//patterns/ObserverPattern">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference designPatternsMDD.ecore#//patterns/ObserverPattern/ObseverPairs"/>
+      </genClasses>
+      <genClasses ecoreClass="designPatternsMDD.ecore#//patterns/SingletonPattern">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference designPatternsMDD.ecore#//patterns/SingletonPattern/SingletonClasses"/>
+      </genClasses>
+      <genClasses ecoreClass="designPatternsMDD.ecore#//patterns/BuilderPattern">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference designPatternsMDD.ecore#//patterns/BuilderPattern/BuilderClasses"/>
+      </genClasses>
+      <genClasses ecoreClass="designPatternsMDD.ecore#//patterns/ObserverPair">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference designPatternsMDD.ecore#//patterns/ObserverPair/Observable"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference designPatternsMDD.ecore#//patterns/ObserverPair/Observers"/>
+      </genClasses>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>

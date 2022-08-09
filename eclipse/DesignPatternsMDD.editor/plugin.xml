@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated designPatternsMDD -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="designPatternsMDD.presentation.DesignPatternsMDDModelWizardID"
+            name="%_UI_DesignPatternsMDDModelWizard_label"
+            class="designPatternsMDD.presentation.DesignPatternsMDDModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/DesignPatternsMDDModelFile.gif">
+         <description>%_UI_DesignPatternsMDDModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated designPatternsMDD -->
+      <editor
+            id="designPatternsMDD.presentation.DesignPatternsMDDEditorID"
+            name="%_UI_DesignPatternsMDDEditor_label"
+            icon="icons/full/obj16/DesignPatternsMDDModelFile.gif"
+            extensions="designpatternsmdd"
+            class="designPatternsMDD.presentation.DesignPatternsMDDEditor"
+            contributorClass="designPatternsMDD.presentation.DesignPatternsMDDActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated designPatternsMDD -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="designPatternsMDD.packages.presentation.PackagesModelWizardID"
+            name="%_UI_PackagesModelWizard_label"
+            class="designPatternsMDD.packages.presentation.PackagesModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/PackagesModelFile.gif">
+         <description>%_UI_PackagesModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated designPatternsMDD -->
+      <editor
+            id="designPatternsMDD.packages.presentation.PackagesEditorID"
+            name="%_UI_PackagesEditor_label"
+            icon="icons/full/obj16/PackagesModelFile.gif"
+            extensions="packages"
+            class="designPatternsMDD.packages.presentation.PackagesEditor"
+            contributorClass="designPatternsMDD.packages.presentation.PackagesActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated designPatternsMDD -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="designPatternsMDD.patterns.presentation.PatternsModelWizardID"
+            name="%_UI_PatternsModelWizard_label"
+            class="designPatternsMDD.patterns.presentation.PatternsModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/PatternsModelFile.gif">
+         <description>%_UI_PatternsModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated designPatternsMDD -->
+      <editor
+            id="designPatternsMDD.patterns.presentation.PatternsEditorID"
+            name="%_UI_PatternsEditor_label"
+            icon="icons/full/obj16/PatternsModelFile.gif"
+            extensions="patterns"
+            class="designPatternsMDD.patterns.presentation.PatternsEditor"
+            contributorClass="designPatternsMDD.patterns.presentation.PatternsActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>
