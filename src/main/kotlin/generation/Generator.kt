@@ -1,19 +1,17 @@
 package generation
 
 import com.grosner.kpoet.*
-import com.squareup.javapoet.*
 import designPatternsMDD.Root
 import designPatternsMDD.patterns.ObserverPair
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
-import util.*
+import util.ANSI_GREEN
+import util.ANSI_RESET
+import util.genName
 import java.io.File
 import java.nio.file.Path
-import java.util.*
-import java.util.regex.Pattern
-import javax.lang.model.element.Modifier
 
 class Generator(private val outPath: Path) {
     private val files = mutableListOf<File>()
