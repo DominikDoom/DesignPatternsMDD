@@ -118,9 +118,9 @@ class Generator(private val outPath: Path) {
                 genExtendIfNeeded(eClass, pkg)
 
                 // Add attribute fields
-                generateAttrsWithGetterSetter(eClass.eAllAttributes)
+                generateAttrsWithGetterSetter(eClass.eAttributes)
                 // Add reference fields
-                generateRefsWithGetterSetter(eClass.eAllReferences, pkg)
+                generateRefsWithGetterSetter(eClass.eReferences, pkg)
 
                 this // Needed since the last statement can sometimes be a unit without it
             }
