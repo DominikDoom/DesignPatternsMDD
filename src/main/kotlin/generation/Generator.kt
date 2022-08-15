@@ -46,7 +46,7 @@ class Generator(private val outPath: Path) {
         // Loop through the model and generate code for each EClass
         val ecoreContents = resource.contents.asSequence()
 
-        ecoreContents.filterIsInstance<Root>().forEach { root ->
+        ecoreContents.filterIsInstance<Root>().first().let { root ->
             // Fill the pattern lists with the specified classes
             builders = root.patterns.builderPattern.builderClasses
             singletons = root.patterns.singletonPattern.singletonClasses
