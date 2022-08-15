@@ -1,6 +1,9 @@
 package generation
 
-import com.grosner.kpoet.*
+import com.grosner.kpoet.`class`
+import com.grosner.kpoet.javaFile
+import com.grosner.kpoet.modifiers
+import com.grosner.kpoet.public
 import designPatternsMDD.DesignPatternsMDDPackage
 import designPatternsMDD.Root
 import designPatternsMDD.patterns.ObserverPair
@@ -111,7 +114,8 @@ class Generator(private val outPath: Path) {
         // Generate the class itself
         val kPoetCode = javaFile(pkg.name) {
             `class`(eClass.genName) {
-                modifiers(public, final)
+                modifiers(public)
+                genExtendIfNeeded(eClass, pkg)
 
                 // Add attribute fields
                 generateAttrsWithGetterSetter(eClass.eAllAttributes)

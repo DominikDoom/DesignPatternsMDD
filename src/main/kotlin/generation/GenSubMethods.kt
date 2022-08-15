@@ -7,12 +7,22 @@ import com.squareup.javapoet.TypeName
 import com.squareup.javapoet.TypeSpec
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EAttribute
+import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.EReference
 import util.camelCase
 import util.genName
 
 private val arrayList = ClassName.get("java.util", "ArrayList")
+
+fun TypeSpec.Builder.genExtendIfNeeded(e: EClass, pkg: EPackage): TypeSpec.Builder {
+    return if (e.eAllSuperTypes.isNotEmpty()) {
+        val typeName = ClassName.get(pkg.name, e.eAllSuperTypes.first().genName)
+        extends(typeName)
+    } else {
+        this
+    }
+}
 
 fun TypeSpec.Builder.generateAttrsWithGetterSetter(attrs: EList<EAttribute>): TypeSpec.Builder {
     attrs.forEach { a ->

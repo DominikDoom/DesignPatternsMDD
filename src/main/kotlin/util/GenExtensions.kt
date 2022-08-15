@@ -2,13 +2,6 @@ package util
 
 import org.eclipse.emf.ecore.EClass
 
-val EClass.smartExtends: Class<*>?
-    get() {
-        return if (eAllSuperTypes.isNotEmpty())
-            eAllSuperTypes.first().instanceClass
-        else null
-    }
-
 val EClass.genName: String
     get() = "${name}Gen"
 
