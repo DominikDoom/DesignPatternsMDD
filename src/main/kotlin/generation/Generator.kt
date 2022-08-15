@@ -1,11 +1,14 @@
 package generation
 
 import com.grosner.kpoet.*
+import designPatternsMDD.DesignPatternsMDDPackage
 import designPatternsMDD.Root
 import designPatternsMDD.patterns.ObserverPair
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EPackage
+import org.eclipse.emf.ecore.resource.Resource.Factory.Registry
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
 import util.ANSI_GREEN
 import util.ANSI_RESET
@@ -37,7 +40,13 @@ class Generator(private val outPath: Path) {
     private fun modelToCode(modelFile: File) {
         // Create XMI resource factory for parsing
         val ecoreURI = URI.createFileURI(modelFile.absolutePath)
-        val resource = XMIResourceFactoryImpl().createResource(ecoreURI)
+        // Create resource set for proper metamodel namespace resolution
+        val resourceSet = ResourceSetImpl()
+        resourceSet.resourceFactoryRegistry.extensionToFactoryMap[Registry.DEFAULT_EXTENSION] =
+            XMIResourceFactoryImpl()
+        resourceSet.packageRegistry[DesignPatternsMDDPackage.eNS_URI] = DesignPatternsMDDPackage.eINSTANCE
+        // Load resource from file
+        val resource = resourceSet.createResource(ecoreURI)
 
         // Empty options to use defaults
         val options: Map<Any, Any> = emptyMap()
@@ -48,9 +57,9 @@ class Generator(private val outPath: Path) {
 
         ecoreContents.filterIsInstance<Root>().first().let { root ->
             // Fill the pattern lists with the specified classes
-            builders = root.patterns.builderPattern.builderClasses
-            singletons = root.patterns.singletonPattern.singletonClasses
-            observerPairs = root.patterns.observerPattern.obseverPairs
+            builders = root.patterns?.builderPattern?.builderClasses
+            singletons = root.patterns?.singletonPattern?.singletonClasses
+            observerPairs = root.patterns?.observerPattern?.obseverPairs
             observables = observerPairs?.map { it.observable }
             observers = observerPairs?.flatMap { it.observers }
 
