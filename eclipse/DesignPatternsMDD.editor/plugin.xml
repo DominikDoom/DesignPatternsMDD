@@ -89,5 +89,41 @@
             contributorClass="designPatternsMDD.patterns.presentation.PatternsActionBarContributor">
       </editor>
    </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="DesignPatternsMDD.editor.customCommand"
+            name="Generate Code Command">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:designPatternsMDD.presentation.DesignPatternsMDDEditorID?before=additions">
+         <command
+               commandId="DesignPatternsMDD.editor.customCommand"
+               icon="res/iconCustomCommand_12x12.png"
+               label="Generate Code"
+               style="push"
+               tooltip="Click to generate Java Code">
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="de.thm.CommandHandler"
+            commandId="DesignPatternsMDD.editor.customCommand">
+         <enabledWhen>
+            <iterate
+                  ifEmpty="false">
+               <instanceof
+                     value="designPatternsMDD.impl.RootImpl">
+               </instanceof>
+            </iterate>
+         </enabledWhen>
+      </handler>
+   </extension>
 
 </plugin>
