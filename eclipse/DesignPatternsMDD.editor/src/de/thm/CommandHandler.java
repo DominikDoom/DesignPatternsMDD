@@ -1,5 +1,6 @@
 package de.thm;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -48,17 +49,24 @@ public class CommandHandler extends AbstractHandler {
 
 		Job job = new Job("Generate Code Job") {
 			protected IStatus run(IProgressMonitor monitor) {
-				String path = ((IFileEditorInput) input).getFile().getLocationURI().getPath();
-				
-				if (outputDirectory.isEmpty()) {
-					System.out.println("[INFO] Empty Output Directory!");
-					return Status.CANCEL_STATUS;
-				} else if (pathToJar.isEmpty()) {
-					System.out.println("[INFO] Empty Path to Jar!");
+				String path;
+				try {
+					path = new File(((IFileEditorInput) input).getFile().getLocationURI()).getCanonicalPath();
+					
+					if (outputDirectory.isEmpty()) {
+						System.out.println("[INFO] Empty Output Directory!");
+						return Status.CANCEL_STATUS;
+					} else if (pathToJar.isEmpty()) {
+						System.out.println("[INFO] Empty Path to Jar!");
+						return Status.CANCEL_STATUS;
+					}
+					
+					return callJar(path);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 					return Status.CANCEL_STATUS;
 				}
-				
-				return callJar(path);
 			}
 		};
 		job.setPriority(Job.SHORT);
@@ -69,6 +77,10 @@ public class CommandHandler extends AbstractHandler {
 
 	private IStatus callJar(String path) {
 		try {
+			System.out.println("Path: " + path);
+			System.out.println("PathJar: " + pathToJar);
+			System.out.println("PathOut: " + outputDirectory);
+
 			Process ps = Runtime.getRuntime().exec(new String[] { "java", "-jar", pathToJar, path, outputDirectory });
 			ps.waitFor();
 
