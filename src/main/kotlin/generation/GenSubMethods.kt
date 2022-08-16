@@ -2,7 +2,7 @@ package generation
 
 import com.grosner.kpoet.*
 import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.ParameterizedTypeName
+import com.squareup.javapoet.ParameterSpec
 import com.squareup.javapoet.TypeName
 import com.squareup.javapoet.TypeSpec
 import org.eclipse.emf.common.util.EList
@@ -12,8 +12,7 @@ import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.EReference
 import util.camelCase
 import util.genName
-
-private val arrayList = ClassName.get("java.util", "ArrayList")
+import util.poetTypeName
 
 fun TypeSpec.Builder.genExtendIfNeeded(e: EClass, pkg: EPackage): TypeSpec.Builder {
     return if (e.eAllSuperTypes.isNotEmpty()) {
@@ -26,9 +25,9 @@ fun TypeSpec.Builder.genExtendIfNeeded(e: EClass, pkg: EPackage): TypeSpec.Build
 
 fun TypeSpec.Builder.generateAttrsWithGetterSetter(attrs: EList<EAttribute>): TypeSpec.Builder {
     attrs.forEach { a ->
-        `private field`(a.eType.instanceClass.kotlin, a.name)
+        `private field`(a.poetTypeName, a.name)
         `public`(
-            type = a.eType.instanceClass.kotlin,
+            type = a.poetTypeName,
             name = camelCase("get", a.name)
         ) {
             `return`(a.name)
@@ -36,7 +35,7 @@ fun TypeSpec.Builder.generateAttrsWithGetterSetter(attrs: EList<EAttribute>): Ty
         `public`(
             type = TypeName.VOID,
             name = camelCase("set", a.name),
-            param(a.eType.instanceClass.kotlin, a.name)
+            param(a.poetTypeName, a.name)
         ) {
             statement("this.${a.name} = ${a.name}")
         }
@@ -46,18 +45,7 @@ fun TypeSpec.Builder.generateAttrsWithGetterSetter(attrs: EList<EAttribute>): Ty
 
 fun TypeSpec.Builder.generateRefsWithGetterSetter(refs: EList<EReference>, pkg: EPackage): TypeSpec.Builder {
     refs.forEach { r ->
-        // Create type name for either direct reference or parameterized ArrayList
-        val typeName: TypeName =
-            if (r.isMany) {
-                // ArrayList reference type
-                ParameterizedTypeName.get(
-                    arrayList,
-                    ClassName.get(pkg.name, r.eReferenceType.genName)
-                )
-            } else {
-                // Direct reference type
-                ClassName.get(pkg.name, r.eReferenceType.genName)
-            }
+        val typeName = r.poetTypeName(pkg)
 
         // Create field
         `private field`(typeName, r.name)
