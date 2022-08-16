@@ -121,6 +121,19 @@ class Generator(private val outPath: Path) {
                 // Add reference fields
                 generateRefsWithGetterSetter(eClass.eReferences, pkg)
 
+                // Add constructor
+                if (eClass.eAllSuperTypes.isEmpty()) {
+                    generateFullConstructor(eClass.eAttributes, eClass.eReferences, pkg)
+                } else {
+                    generateExtensionConstructor(
+                        eClass.eAttributes,
+                        eClass.eAllAttributes - eClass.eAttributes,
+                        eClass.eReferences,
+                        eClass.eAllReferences - eClass.eReferences,
+                        pkg
+                    )
+                }
+
                 this // Needed since the last statement can sometimes be a unit without it
             }
         }.toBuilder().indent("    ").build().toString()
@@ -131,6 +144,8 @@ class Generator(private val outPath: Path) {
                 modifiers(public)
                 extends(ClassName.get(pkg.name, eClass.genName))
                 javadoc("TODO: Add custom logic here")
+
+                generateSuperConstructor(eClass.eAllAttributes, eClass.eAllReferences, pkg)
                 this // Needed since the last statement can sometimes be a unit without it
             }
         }.toBuilder().indent("    ").build().toString()
