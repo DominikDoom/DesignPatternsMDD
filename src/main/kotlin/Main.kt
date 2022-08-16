@@ -10,7 +10,7 @@ import java.util.*
  * */
 private val File.validMDDFileType: Boolean
     get() {
-        return arrayOf("ecore", "metamodel", "designpatternsmdd")
+        return arrayOf("designpatternsmdd")
             .contains(extension)
     }
 
