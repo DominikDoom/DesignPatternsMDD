@@ -1,5 +1,6 @@
 package de.thm;
 
+import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.SWT;
@@ -15,8 +16,17 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.ide.IDE;
+import org.osgi.framework.FrameworkUtil;
 
 public class AdditionalInformationDialog extends TitleAreaDialog {
+	
+	private final IDialogSettings settings = PlatformUI.getDialogSettingsProvider(FrameworkUtil.getBundle(IDE.class))
+			.getDialogSettings();
+
+	private final String outputDirectoryKey = "dirOut";
+	private final String jarPathKey = "pathJar";
 
 	private String outputDirectory;
 	private Label lblOutputDirectory;
@@ -34,8 +44,7 @@ public class AdditionalInformationDialog extends TitleAreaDialog {
 	public void create() {
 		super.create();
 		setTitle("Code Generation");
-		setMessage("Please provide additional information!",
-				IMessageProvider.INFORMATION);
+		setMessage("Please provide additional information!", IMessageProvider.INFORMATION);
 	}
 
 	@Override
@@ -50,6 +59,8 @@ public class AdditionalInformationDialog extends TitleAreaDialog {
 		createPathToJarLayout(container);
 		createOutputDirectoryLayout(container);
 
+		loadData();
+		
 		return area;
 	}
 
@@ -70,6 +81,7 @@ public class AdditionalInformationDialog extends TitleAreaDialog {
 		if (returnCode == SWT.OK) {
 			CommandHandler.setOutputDirectory(outputDirectory);
 			CommandHandler.setPathToJar(pathToJar);
+			saveSettings();
 			super.okPressed();
 		}
 	}
@@ -88,13 +100,13 @@ public class AdditionalInformationDialog extends TitleAreaDialog {
 				updatePathToJar(result);
 			}
 		});
-		
+
 		lblPathToJar = new Label(container, SWT.NONE);
 		lblPathToJar.setText("none");
 
 	}
 
-	private void createOutputDirectoryLayout(Composite container) {		
+	private void createOutputDirectoryLayout(Composite container) {
 		Label lbl = new Label(container, SWT.NONE);
 		lbl.setText("Output Directory");
 
@@ -108,8 +120,8 @@ public class AdditionalInformationDialog extends TitleAreaDialog {
 				updateOutputDirectory(result);
 			}
 		});
-		
-		lblOutputDirectory = new Label(container, SWT.NONE);		
+
+		lblOutputDirectory = new Label(container, SWT.NONE);
 		updateOutputDirectory(System.getProperty("user.dir"));
 	}
 
@@ -125,6 +137,23 @@ public class AdditionalInformationDialog extends TitleAreaDialog {
 		bOutputDirectory.setToolTipText(outputDirectory);
 		lblOutputDirectory.setText(outputDirectory);
 		lblOutputDirectory.requestLayout();
+	}
+
+	private void loadData() {
+		String pathToJarSetting = settings.get(jarPathKey);
+		if (pathToJarSetting != null && !pathToJarSetting.isBlank()) {
+			updatePathToJar(pathToJarSetting);
+		}
+
+		String outputDirectorySetting = settings.get(outputDirectoryKey);
+		if (outputDirectorySetting != null && !outputDirectorySetting.isBlank()) {
+			updateOutputDirectory(outputDirectorySetting);
+		}
+	}
+	
+	private void saveSettings() {
+		settings.put(jarPathKey, pathToJar);
+		settings.put(outputDirectoryKey, outputDirectory);
 	}
 
 	private String createFileDialog(Shell shell) {
