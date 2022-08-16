@@ -1,9 +1,7 @@
 package generation
 
-import com.grosner.kpoet.`class`
-import com.grosner.kpoet.javaFile
-import com.grosner.kpoet.modifiers
-import com.grosner.kpoet.public
+import com.grosner.kpoet.*
+import com.squareup.javapoet.ClassName
 import designPatternsMDD.DesignPatternsMDDPackage
 import designPatternsMDD.Root
 import designPatternsMDD.patterns.ObserverPair
@@ -15,6 +13,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
 import util.ANSI_GREEN
 import util.ANSI_RESET
+import util.ANSI_YELLOW
 import util.genName
 import java.io.File
 import java.nio.file.Path
@@ -114,7 +113,7 @@ class Generator(private val outPath: Path) {
         // Generate the class itself
         val kPoetCode = javaFile(pkg.name) {
             `class`(eClass.genName) {
-                modifiers(public)
+                modifiers(public, abstract)
                 genExtendIfNeeded(eClass, pkg)
 
                 // Add attribute fields
@@ -126,20 +125,50 @@ class Generator(private val outPath: Path) {
             }
         }.toBuilder().indent("    ").build().toString()
 
+        // Generate the manually extendable class
+        val kPoetCodeExtendable = javaFile(pkg.name) {
+            `class`(eClass.name) {
+                modifiers(public)
+                extends(ClassName.get(pkg.name, eClass.genName))
+                javadoc("TODO: Add custom logic here")
+                this // Needed since the last statement can sometimes be a unit without it
+            }
+        }.toBuilder().indent("    ").build().toString()
+
         // Save the code to a generated file
-        save(eClass.name, pkg.name, kPoetCode)
+        save(eClass.genName, pkg.name, kPoetCode)
+        saveExtendable(eClass.name, pkg.name, kPoetCodeExtendable)
     }
 
     private fun save(name: String, pkg: String, code: String) {
+        val file = getOutFile(name, pkg)
+        file.writeFile(code)
+    }
+
+    private fun saveExtendable(name: String, pkg: String, code: String) {
+        val file = getOutFile(name, pkg)
+
+        if (file.isFile) {
+            println("${ANSI_YELLOW}Skipped extendable file ${file.name} since it already exits$ANSI_RESET")
+            return
+        }
+
+        file.writeFile(code)
+    }
+
+    private fun getOutFile(name: String, pkg: String): File {
         // Create output directory if it doesn't exist
         val pkgWithoutBase = pkg.replace(outPath.toAbsolutePath().toString(), "")
         val outFile = Path.of(outPath.toString(), pkgWithoutBase.replace(".", File.separator)).toFile()
         if (!outFile.exists())
             outFile.mkdirs()
 
-        val file = File(outFile, "${name}Gen.java")
-        file.createNewFile()
-        file.writeText(code)
-        println("${ANSI_GREEN}Successfully generated ${file.name}$ANSI_RESET")
+        return File(outFile, "${name}.java")
+    }
+
+    private fun File.writeFile(code: String) {
+        createNewFile()
+        writeText(code)
+        println("${ANSI_GREEN}Successfully generated ${name}$ANSI_RESET")
     }
 }
