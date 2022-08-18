@@ -11,10 +11,7 @@ import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.resource.Resource.Factory.Registry
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
-import util.ANSI_GREEN
-import util.ANSI_RESET
-import util.ANSI_YELLOW
-import util.genName
+import util.*
 import java.io.File
 import java.nio.file.Path
 
@@ -77,7 +74,7 @@ class Generator(private val outPath: Path) {
         }
     }
 
-    private fun EClass.getPatterns() : GenClassHolder {
+    private fun EClass.getPatterns(): GenClassHolder {
         var patterns = DesignPatterns.of(DesignPattern.NONE)
         var referenceClass: EClass? = null
 
@@ -109,7 +106,19 @@ class Generator(private val outPath: Path) {
 
     private fun GenClassHolder.generate(pkg: EPackage) {
         // TODO generate patterns
+        if (usedPatterns.contains(DesignPattern.BUILDER)) {
+            val builder = javaFile(pkg.name) {
+                `class`(eClass.name + "Builder") {
+                    modifiers(public)
+                    genExtendIfNeeded(eClass, pkg)
+                    // Create builder
+                    generateBuilderPattern(eClass, pkg)
 
+                    this // Needed since the last statement can sometimes be a unit without it
+                }
+            }.toBuilder().indent("    ").build().toString()
+            save(eClass.name + "Builder", pkg.name, builder)
+        }
         // Generate the class itself
         val kPoetCode = javaFile(pkg.name) {
             `class`(eClass.genName) {
@@ -122,17 +131,19 @@ class Generator(private val outPath: Path) {
                 generateRefsWithGetterSetter(eClass.eReferences, pkg)
 
                 // Add constructor
-                if (eClass.eAllSuperTypes.isEmpty()) {
-                    generateFullConstructor(eClass.eAttributes, eClass.eReferences, pkg)
-                } else {
-                    generateExtensionConstructor(
-                        eClass.eAttributes,
-                        eClass.eAllAttributes - eClass.eAttributes,
-                        eClass.eReferences,
-                        eClass.eAllReferences - eClass.eReferences,
-                        pkg
-                    )
-                }
+                constructor(){modifiers(protected)}
+                    if (eClass.eAllSuperTypes.isEmpty()) {
+                        generateFullConstructor(eClass.eAttributes, eClass.eReferences, pkg, usedPatterns)
+                    } else {
+                        generateExtensionConstructor(
+                            eClass.eAttributes,
+                            eClass.eAllAttributes - eClass.eAttributes,
+                            eClass.eReferences,
+                            eClass.eAllReferences - eClass.eReferences,
+                            pkg,
+                            usedPatterns
+                        )
+                    }
 
                 this // Needed since the last statement can sometimes be a unit without it
             }
@@ -143,9 +154,14 @@ class Generator(private val outPath: Path) {
             `class`(eClass.name) {
                 modifiers(public)
                 extends(ClassName.get(pkg.name, eClass.genName))
+                //Add Singleton Pattern
+                if (usedPatterns.contains(DesignPattern.SINGLETON))
+                    generateSingletonPattern(eClass, pkg)
+
                 javadoc("TODO: Add custom logic here")
 
-                generateSuperConstructor(eClass.eAllAttributes, eClass.eAllReferences, pkg)
+                generateEmptySuperConstructor(usedPatterns)
+                generateSuperConstructor(eClass.eAllAttributes, eClass.eAllReferences, pkg, usedPatterns)
                 this // Needed since the last statement can sometimes be a unit without it
             }
         }.toBuilder().indent("    ").build().toString()

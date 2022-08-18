@@ -13,6 +13,8 @@ import org.eclipse.emf.ecore.EReference
 import util.camelCase
 import util.genName
 import util.poetTypeName
+import java.util.EnumSet
+import javax.lang.model.element.Modifier
 
 fun TypeSpec.Builder.genExtendIfNeeded(e: EClass, pkg: EPackage): TypeSpec.Builder {
     return if (e.eAllSuperTypes.isNotEmpty()) {
@@ -70,6 +72,70 @@ fun TypeSpec.Builder.generateRefsWithGetterSetter(refs: EList<EReference>, pkg: 
     return this
 }
 
+fun TypeSpec.Builder.generateSingletonPattern(e: EClass, pkg: EPackage): TypeSpec.Builder {
+    val typeName = ClassName.get(pkg.name, e.name)
+    `private static final field`(typeName, "instance") {
+        `=`("new ${e.name}()")
+    }
+    `public static`(
+        type = typeName,
+        name = camelCase("get", e.name)
+    ) {
+        `return`("instance")
+    }
+    return this
+}
+
+fun TypeSpec.Builder.generateBuilderPattern(e: EClass, pkg: EPackage): TypeSpec.Builder {
+    val typeName = ClassName.get(pkg.name, e.name)
+    val builderTypeName = ClassName.get(pkg.name, "${e.name}Builder")
+    `private field`(typeName, "instance")
+    `constructor`() {
+        modifiers(public)
+        statement("this.instance = new ${e.name}()")
+    }
+    e.eAllAttributes.forEach { a ->
+        `public`(
+            type = builderTypeName,
+            name = camelCase("set", a.name),
+            param(a.poetTypeName, a.name)
+        )
+        {
+            statement("this.instance.set${a.name}(${a.name})")
+            `return`("this")
+        }
+    }
+    e.eAllReferences.forEach { r ->
+        `public`(
+            type = builderTypeName,
+            name = camelCase("set", r.name),
+            param(r.poetTypeName(pkg), r.name)
+        )
+        {
+            statement("this.instance.set${r.name}(${r.name})")
+            `return`("this")
+        }
+    }
+    `public`(
+        type = typeName,
+        name = "build",
+    ) {
+        `return`("this.instance")
+    }
+
+    return this
+}
+
+fun TypeSpec.Builder.generateEmptySuperConstructor(usedPatterns:EnumSet<DesignPattern>): TypeSpec.Builder {
+    return constructor() {
+        if(usedPatterns.contains(DesignPattern.SINGLETON))
+            modifiers(private)
+        else
+        modifiers(public)
+        statement("super()")
+    }
+}
+
 /**
  * Generates a constructor that takes all attributes and references of the class as parameters.
  * @param a The attributes of the class.
@@ -80,13 +146,14 @@ fun TypeSpec.Builder.generateRefsWithGetterSetter(refs: EList<EReference>, pkg: 
 fun TypeSpec.Builder.generateFullConstructor(
     a: EList<EAttribute>,
     r: EList<EReference>,
-    pkg: EPackage
+    pkg: EPackage,
+    usedPatterns: EnumSet<DesignPattern>
 ): TypeSpec.Builder {
     return constructor(
         *getParamsFromAttrs(a),
         *getParamsFromRefs(r, pkg)
     ) {
-        modifiers(protected)
+            modifiers(protected)
 
         // Add direct statements
         (a + r).forEach {
@@ -111,14 +178,14 @@ fun TypeSpec.Builder.generateExtensionConstructor(
     aSuper: List<EAttribute>,
     r: EList<EReference>,
     rSuper: List<EReference>,
-    pkg: EPackage
+    pkg: EPackage,
+    usedPatterns: EnumSet<DesignPattern>
 ): TypeSpec.Builder {
     return constructor(
         *getParamsFromAttrs(aSuper + a),
         *getParamsFromRefs(rSuper + r, pkg)
     ) {
         modifiers(protected)
-
         // Add super statement
         statement(
             "super(${
@@ -141,12 +208,20 @@ fun TypeSpec.Builder.generateExtensionConstructor(
  * @param pkg The package containing the class.
  * @return The built constructor.
  * */
-fun TypeSpec.Builder.generateSuperConstructor(a: EList<EAttribute>, r: EList<EReference>, pkg: EPackage): TypeSpec.Builder {
+fun TypeSpec.Builder.generateSuperConstructor(
+    a: EList<EAttribute>,
+    r: EList<EReference>,
+    pkg: EPackage,
+    usedPatterns: EnumSet<DesignPattern>
+): TypeSpec.Builder {
     return constructor(
         *getParamsFromAttrs(a),
         *getParamsFromRefs(r, pkg)
     ) {
-        modifiers(public)
+        if (usedPatterns.contains(DesignPattern.SINGLETON))
+            modifiers(private)
+        else
+            modifiers(public)
 
         // Add super statement
         statement(
