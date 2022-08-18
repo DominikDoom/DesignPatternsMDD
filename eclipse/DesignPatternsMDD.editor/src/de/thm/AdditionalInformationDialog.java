@@ -20,26 +20,56 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 import org.osgi.framework.FrameworkUtil;
 
+/**
+ * The AdditionalInformationDialog Type.
+ *
+ */
 public class AdditionalInformationDialog extends TitleAreaDialog {
 	
+	/**
+	 * The Dialog Settings (internally represented as XML file with key/value structure)
+	 */
 	private final IDialogSettings settings = PlatformUI.getDialogSettingsProvider(FrameworkUtil.getBundle(IDE.class))
 			.getDialogSettings();
 
+	/**
+	 * The Settings Keys
+	 */
 	private final String outputDirectoryKey = "dirOut";
 	private final String jarPathKey = "pathJar";
 
+	/**
+	 * The Output Directory related variables
+	 */
 	private String outputDirectory;
 	private Label lblOutputDirectory;
 	private Button bOutputDirectory;
 
+	/**
+	 * The Path to executable command-line Jar related variables
+	 */
 	private String pathToJar;
 	private Label lblPathToJar;
 	private Button bPathToJar;
+	
+	/**
+	 * The Handler, which called the class
+	 */
+	private CustomCommandHandler handler;
 
-	public AdditionalInformationDialog(Shell parentShell) {
+	/**
+	 * Calls the super constructor and initializes the handler variable
+	 * @param parentShell the parent Shell, which displays the visuals
+	 * @param handler the handler, which called the Dialog
+	 */
+	public AdditionalInformationDialog(Shell parentShell, CustomCommandHandler handler) {
 		super(parentShell);
+		this.handler = handler;
 	}
 
+	/**
+	 * Overrides on create to load some custom configurations
+	 */
 	@Override
 	public void create() {
 		super.create();
@@ -47,6 +77,9 @@ public class AdditionalInformationDialog extends TitleAreaDialog {
 		setMessage("Please provide additional information!", IMessageProvider.INFORMATION);
 	}
 
+	/**
+	 * Create the custom Dialog
+	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
 		Composite area = (Composite) super.createDialogArea(parent);
@@ -64,11 +97,17 @@ public class AdditionalInformationDialog extends TitleAreaDialog {
 		return area;
 	}
 
+	/**
+	 * Enable custom resizing
+	 */
 	@Override
 	protected boolean isResizable() {
 		return true;
 	}
 
+	/**
+	 * Handle the submit logic
+	 */
 	@Override
 	protected void okPressed() {
 		MessageBox dialog = new MessageBox(getParentShell(), SWT.ICON_QUESTION | SWT.OK | SWT.CANCEL);
@@ -79,13 +118,17 @@ public class AdditionalInformationDialog extends TitleAreaDialog {
 		int returnCode = dialog.open();
 
 		if (returnCode == SWT.OK) {
-			CommandHandler.setOutputDirectory(outputDirectory);
-			CommandHandler.setPathToJar(pathToJar);
+			handler.setOutputDirectory(outputDirectory);
+			handler.setPathToJar(pathToJar);
 			saveSettings();
 			super.okPressed();
 		}
 	}
 
+	/**
+	 * Creates the Layout for the path to Jar
+	 * @param container the container, which holds the layout
+	 */
 	private void createPathToJarLayout(Composite container) {
 		Label lbl = new Label(container, SWT.NONE);
 		lbl.setText("Generation Jar");
@@ -106,6 +149,10 @@ public class AdditionalInformationDialog extends TitleAreaDialog {
 
 	}
 
+	/**
+	 * Creates the Layout for the output directory
+	 * @param container the container, which holds the layout
+	 */
 	private void createOutputDirectoryLayout(Composite container) {
 		Label lbl = new Label(container, SWT.NONE);
 		lbl.setText("Output Directory");
@@ -125,6 +172,10 @@ public class AdditionalInformationDialog extends TitleAreaDialog {
 		updateOutputDirectory(System.getProperty("user.dir"));
 	}
 
+	/**
+	 * Updates visuals and values whenever path to jar changes
+	 * @param text the new Value
+	 */
 	private void updatePathToJar(String text) {
 		pathToJar = text;
 		bPathToJar.setToolTipText(pathToJar);
@@ -132,6 +183,10 @@ public class AdditionalInformationDialog extends TitleAreaDialog {
 		lblPathToJar.requestLayout();
 	}
 
+	/**
+	 * Updates visuals and values whenever the output directory changes
+	 * @param text the new Value
+	 */
 	private void updateOutputDirectory(String text) {
 		outputDirectory = text;
 		bOutputDirectory.setToolTipText(outputDirectory);
@@ -139,6 +194,11 @@ public class AdditionalInformationDialog extends TitleAreaDialog {
 		lblOutputDirectory.requestLayout();
 	}
 
+	/**
+	 * Load the Settings from local file system
+	 * 
+	 * Gets called on start up
+	 */
 	private void loadData() {
 		String pathToJarSetting = settings.get(jarPathKey);
 		if (pathToJarSetting != null && !pathToJarSetting.isBlank()) {
@@ -151,17 +211,32 @@ public class AdditionalInformationDialog extends TitleAreaDialog {
 		}
 	}
 	
+	/**
+	 * Saves the settings on local file system
+	 * 
+	 * Gets called on closure
+	 */
 	private void saveSettings() {
 		settings.put(jarPathKey, pathToJar);
 		settings.put(outputDirectoryKey, outputDirectory);
 	}
 
+	/**
+	 * Creates a file dialog
+	 * @param shell the shell to display the dialog
+	 * @return the File Path
+	 */
 	private String createFileDialog(Shell shell) {
 		FileDialog dialog = new FileDialog(shell, SWT.OPEN);
 		dialog.setFilterExtensions(new String[] { "*.jar" });
 		return dialog.open();
 	}
 
+	/**
+	 * Creates a folder dialog
+	 * @param shell the shell to display the dialog
+	 * @return the Folder Path
+	 */
 	private String createDirectoryPickerDialog(Shell shell) {
 		DirectoryDialog dialog = new DirectoryDialog(shell, SWT.OPEN);
 		return dialog.open();

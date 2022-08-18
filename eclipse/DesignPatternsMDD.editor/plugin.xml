@@ -92,8 +92,14 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
+            description="Used to generate Java Code by a model"
             id="DesignPatternsMDD.editor.customCommand"
             name="Generate Code Command">
+      </command>
+      <command
+            description="Used to generate Java Code for several models"
+            id="DesignPatternsMDD.editor.customCommand2"
+            name="Generate Code by Folder">
       </command>
    </extension>
    <extension
@@ -109,11 +115,22 @@
                tooltip="Click to generate Java Code">
          </command>
       </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu">
+         <command
+               commandId="DesignPatternsMDD.editor.customCommand2"
+               icon="res/iconCustomCommand_12x12.png"
+               label="Generate Projects"
+               style="push"
+               tooltip="Click to generate Java Code for models in folder">
+         </command>
+      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="de.thm.CommandHandler"
+            class="de.thm.CustomCommandHandler"
             commandId="DesignPatternsMDD.editor.customCommand">
          <enabledWhen>
             <iterate
@@ -122,6 +139,22 @@
                      value="designPatternsMDD.impl.RootImpl">
                </instanceof>
             </iterate>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="de.thm.CustomCommandHandler"
+            commandId="DesignPatternsMDD.editor.customCommand2">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <iterate
+                     ifEmpty="false"
+                     operator="and">
+                  <instanceof
+                        value="org.eclipse.core.resources.IFolder">
+                  </instanceof>
+               </iterate>
+            </with>
          </enabledWhen>
       </handler>
    </extension>
