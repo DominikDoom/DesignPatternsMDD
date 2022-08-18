@@ -5,13 +5,20 @@ import com.squareup.javapoet.ClassName
 import designPatternsMDD.DesignPatternsMDDPackage
 import designPatternsMDD.Root
 import designPatternsMDD.patterns.ObserverPair
+import generation.patterns.Builder
+import generation.patterns.DesignPattern
+import generation.patterns.Singleton
+import generation.submethods.*
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.resource.Resource.Factory.Registry
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
-import util.*
+import util.ANSI_GREEN
+import util.ANSI_RESET
+import util.ANSI_YELLOW
+import util.genName
 import java.io.File
 import java.nio.file.Path
 
@@ -75,24 +82,24 @@ class Generator(private val outPath: Path) {
     }
 
     private fun EClass.getPatterns(): GenClassHolder {
-        var patterns = DesignPatterns.of(DesignPattern.NONE)
+        val patterns = mutableListOf<DesignPattern>()
         var referenceClass: EClass? = null
 
         // Builders
         if (builders != null && builders!!.contains(this)) {
-            patterns = patterns and DesignPattern.BUILDER
+            patterns.add(Builder())
         }
         // Singletons
         if (singletons != null && singletons!!.contains(this)) {
-            patterns = patterns and DesignPattern.SINGLETON
+            patterns.add(Singleton())
         }
         // Observers
         if (observerPairs != null) {
             if (observables != null && observables!!.contains(this)) {
-                patterns = patterns and DesignPattern.OBSERVER
+                //patterns.add(Observer())
             }
             if (observers != null && observers!!.contains(this)) {
-                patterns = patterns and DesignPattern.OBSERVER
+                //patterns.add(Observer())
                 referenceClass = observerPairs!!.find { it.observers.contains(this) }!!.observable
             }
         }
@@ -106,19 +113,7 @@ class Generator(private val outPath: Path) {
 
     private fun GenClassHolder.generate(pkg: EPackage) {
         // TODO generate patterns
-        if (usedPatterns.contains(DesignPattern.BUILDER)) {
-            val builder = javaFile(pkg.name) {
-                `class`(eClass.name + "Builder") {
-                    modifiers(public)
-                    genExtendIfNeeded(eClass, pkg)
-                    // Create builder
-                    generateBuilderPattern(eClass, pkg)
 
-                    this // Needed since the last statement can sometimes be a unit without it
-                }
-            }.toBuilder().indent("    ").build().toString()
-            save(eClass.name + "Builder", pkg.name, builder)
-        }
         // Generate the class itself
         val kPoetCode = javaFile(pkg.name) {
             `class`(eClass.genName) {
@@ -130,20 +125,23 @@ class Generator(private val outPath: Path) {
                 // Add reference fields
                 generateRefsWithGetterSetter(eClass.eReferences, pkg)
 
-                // Add constructor
-                constructor(){modifiers(protected)}
+                // Add empty constructor
+                constructor { modifiers(protected) }
+
+                // Add other constructors if attributes or references are present
+                if (eClass.eAttributes.isNotEmpty() || eClass.eReferences.isNotEmpty()) {
                     if (eClass.eAllSuperTypes.isEmpty()) {
-                        generateFullConstructor(eClass.eAttributes, eClass.eReferences, pkg, usedPatterns)
+                        generateFullConstructor(eClass.eAttributes, eClass.eReferences, pkg)
                     } else {
                         generateExtensionConstructor(
                             eClass.eAttributes,
                             eClass.eAllAttributes - eClass.eAttributes,
                             eClass.eReferences,
                             eClass.eAllReferences - eClass.eReferences,
-                            pkg,
-                            usedPatterns
+                            pkg
                         )
                     }
+                }
 
                 this // Needed since the last statement can sometimes be a unit without it
             }
@@ -154,14 +152,21 @@ class Generator(private val outPath: Path) {
             `class`(eClass.name) {
                 modifiers(public)
                 extends(ClassName.get(pkg.name, eClass.genName))
-                //Add Singleton Pattern
-                if (usedPatterns.contains(DesignPattern.SINGLETON))
-                    generateSingletonPattern(eClass, pkg)
+
+                // Generate all used patterns that don't live in their own file
+                usedPatterns.forEach { pattern: DesignPattern ->
+                    pattern.ts = this
+                    pattern.generate(eClass, pkg, this@Generator)
+                }
 
                 javadoc("TODO: Add custom logic here")
 
-                generateEmptySuperConstructor(usedPatterns)
-                generateSuperConstructor(eClass.eAllAttributes, eClass.eAllReferences, pkg, usedPatterns)
+
+                if (eClass.eAttributes.isNotEmpty() && eClass.eReferences.isNotEmpty()) {
+                    generateSuperConstructor(eClass.eAllAttributes, eClass.eAllReferences, pkg, usedPatterns)
+                } else {
+                    generateEmptySuperConstructor(usedPatterns)
+                }
                 this // Needed since the last statement can sometimes be a unit without it
             }
         }.toBuilder().indent("    ").build().toString()
@@ -171,7 +176,7 @@ class Generator(private val outPath: Path) {
         saveExtendable(eClass.name, pkg.name, kPoetCodeExtendable)
     }
 
-    private fun save(name: String, pkg: String, code: String) {
+    fun save(name: String, pkg: String, code: String) {
         val file = getOutFile(name, pkg)
         file.writeFile(code)
     }
