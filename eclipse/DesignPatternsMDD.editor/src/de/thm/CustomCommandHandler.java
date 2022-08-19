@@ -36,6 +36,7 @@ public final class CustomCommandHandler extends AbstractHandler {
 	 */
 	private String outputDirectory = "";
 	private String pathToJar = "";
+	private boolean clearOutputDirectory = false;
 
 	/**
 	 * Calls the Jar with the given Directories
@@ -47,8 +48,9 @@ public final class CustomCommandHandler extends AbstractHandler {
 			LogUtils.logInfo("Path: " + path);
 			LogUtils.logInfo("PathJar: " + pathToJar);
 			LogUtils.logInfo("PathOut: " + outputDirectory);
+			LogUtils.logInfo("Clear PathOut: " + clearOutputDirectory);
 
-			Process ps = Runtime.getRuntime().exec(new String[] { "java", "-jar", pathToJar, path, outputDirectory });
+			Process ps = Runtime.getRuntime().exec(new String[] { "java", "-jar", pathToJar, path, outputDirectory, String.valueOf(clearOutputDirectory) });
 			ps.waitFor();
 
 			// Comment to hide called Jar Output
@@ -171,5 +173,13 @@ public final class CustomCommandHandler extends AbstractHandler {
 	 */
 	public void setPathToJar(String pathToJar) {
 		this.pathToJar = pathToJar;
+	}
+	
+	/**
+	 * Determines whether to clear the Output Directory on generation or not
+	 * @param clearOutputDirectory the Boolean Value
+	 */
+	public void setClearOutputDirectory(boolean clearOutputDirectory) {
+		this.clearOutputDirectory = clearOutputDirectory;
 	}
 }

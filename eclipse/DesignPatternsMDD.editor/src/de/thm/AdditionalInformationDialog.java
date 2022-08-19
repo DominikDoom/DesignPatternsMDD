@@ -53,6 +53,12 @@ public class AdditionalInformationDialog extends TitleAreaDialog {
 	private Button bPathToJar;
 	
 	/**
+	 * The clear Output Directory related variables
+	 */
+	private boolean clearOutputDirectory;
+	private Button bClearOutputDirectory;
+	
+	/**
 	 * The Handler, which called the class
 	 */
 	private CustomCommandHandler handler;
@@ -91,6 +97,7 @@ public class AdditionalInformationDialog extends TitleAreaDialog {
 
 		createPathToJarLayout(container);
 		createOutputDirectoryLayout(container);
+		createClearOutputLayout(container);
 
 		loadData();
 		
@@ -120,6 +127,7 @@ public class AdditionalInformationDialog extends TitleAreaDialog {
 		if (returnCode == SWT.OK) {
 			handler.setOutputDirectory(outputDirectory);
 			handler.setPathToJar(pathToJar);
+			handler.setClearOutputDirectory(clearOutputDirectory);
 			saveSettings();
 			super.okPressed();
 		}
@@ -170,6 +178,33 @@ public class AdditionalInformationDialog extends TitleAreaDialog {
 
 		lblOutputDirectory = new Label(container, SWT.NONE);
 		updateOutputDirectory(System.getProperty("user.dir"));
+	}
+	
+	/**
+	 * Creates the Layout for the clear output directory checkbox
+	 * @param container the container, which holds the layout
+	 */
+	private void createClearOutputLayout(Composite container) {
+		Label lbl = new Label(container, SWT.None);
+		lbl.setText("Clear Output Directory?");
+		
+		bClearOutputDirectory = new Button(container, SWT.CHECK);
+		bClearOutputDirectory.setText("Clear");
+		bClearOutputDirectory.setSelection(false);
+		
+		bClearOutputDirectory.addSelectionListener(new SelectionAdapter() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				super.widgetSelected(e);
+				
+				Button source = (Button) e.getSource();
+				clearOutputDirectory = source.getSelection();
+			}
+		});
+		
+		Label lblWarning = new Label(container, SWT.NONE);
+		lblWarning.setText("⚠ This Action cannot be undone!");
 	}
 
 	/**
