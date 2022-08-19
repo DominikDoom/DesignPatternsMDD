@@ -4,6 +4,8 @@ import java.io.File
 import java.io.InputStream
 import java.nio.file.Path
 import java.util.*
+import kotlin.io.path.exists
+import kotlin.io.path.isDirectory
 
 /**
  * Extension property for checking supported file types.
@@ -27,14 +29,15 @@ fun main(args: Array<String>) {
     val jarName = p.getProperty("jarName")
 
     // Check for right amount of arguments
-    if (args.size != 2) {
-        println("${ANSI_RED}One or both required parameters are missing.$ANSI_RESET")
-        println("Usage: ${ANSI_PURPLE}java$ANSI_YELLOW -jar$ANSI_RESET $jarName.jar $ANSI_RED<Ecore/Metamodel input file/directory> <CodeGen output directory>$ANSI_RESET")
+    if (args.size != 3) {
+        println("${ANSI_RED}One or more required parameters are missing.$ANSI_RESET")
+        println("Usage: ${ANSI_PURPLE}java$ANSI_YELLOW -jar$ANSI_RESET $jarName.jar $ANSI_RED<Ecore/Metamodel input file/directory> <CodeGen output directory> <Clean output folder y/n>$ANSI_RESET")
         return
     }
     // Get input and output paths
     val inputPath = Path.of(args[0])
     val outputPath = Path.of(args[1])
+    val cleanOutput = getBoolArg(args[2])
     val inFile = inputPath.toFile()
 
     // Setup generator
@@ -67,9 +70,31 @@ fun main(args: Array<String>) {
     }
 
     // Generate code
-    if (generator.hasFiles())
+    if (generator.hasFiles()) {
+        // Clean output folder if requested
+        if (cleanOutput && outputPath.exists() && outputPath.isDirectory()) {
+            cleanDirectory(outputPath.toFile())
+            println("${ANSI_YELLOW}Output directory cleaned by request$ANSI_RESET")
+        }
+
+        // Start generation
         generator.generate()
-    else
+    } else {
         println("${ANSI_YELLOW}No files were generated$ANSI_RESET")
+    }
+}
+
+fun cleanDirectory(dir: File) {
+    for (file in dir.listFiles()) {
+        if (file.isDirectory) cleanDirectory(file)
+        file.delete()
+    }
+}
+
+fun getBoolArg(arg: String): Boolean {
+    return arg.lowercase(Locale.getDefault()) == "y"
+            || arg.lowercase(Locale.getDefault()) == "yes"
+            || arg.lowercase(Locale.getDefault()) == "true"
+            || arg.lowercase(Locale.getDefault()) == "1"
 }
 
