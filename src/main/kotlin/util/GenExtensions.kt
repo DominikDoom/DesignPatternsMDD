@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.EReference
 import kotlin.reflect.KClass
 
-private val arrayList = ClassName.get("java.util", "ArrayList")
+val arrayList = ClassName.get("java.util", "ArrayList")
 
 val EClass.genName: String
     get() = "${name}Gen"

@@ -7,6 +7,7 @@ import designPatternsMDD.Root
 import designPatternsMDD.patterns.ObserverPair
 import generation.patterns.Builder
 import generation.patterns.DesignPattern
+import generation.patterns.Observer
 import generation.patterns.Singleton
 import generation.submethods.*
 import org.eclipse.emf.common.util.URI
@@ -96,10 +97,10 @@ class Generator(private val outPath: Path) {
         // Observers
         if (observerPairs != null) {
             if (observables != null && observables!!.contains(this)) {
-                //patterns.add(Observer())
+                patterns.add(Observer())
             }
             if (observers != null && observers!!.contains(this)) {
-                //patterns.add(Observer())
+                patterns.add(Observer())
                 referenceClass = observerPairs!!.find { it.observers.contains(this) }!!.observable
             }
         }
@@ -156,16 +157,15 @@ class Generator(private val outPath: Path) {
                 // Generate all used patterns that don't live in their own file
                 usedPatterns.forEach { pattern: DesignPattern ->
                     pattern.ts = this
+                    pattern.ref = referenceClass
                     pattern.generate(eClass, pkg, this@Generator)
                 }
 
                 javadoc("TODO: Add custom logic here")
 
-
-                if (eClass.eAttributes.isNotEmpty() && eClass.eReferences.isNotEmpty()) {
+                generateEmptySuperConstructor(usedPatterns)
+                if (eClass.eAttributes.isNotEmpty() || eClass.eReferences.isNotEmpty()) {
                     generateSuperConstructor(eClass.eAllAttributes, eClass.eAllReferences, pkg, usedPatterns)
-                } else {
-                    generateEmptySuperConstructor(usedPatterns)
                 }
                 this // Needed since the last statement can sometimes be a unit without it
             }
