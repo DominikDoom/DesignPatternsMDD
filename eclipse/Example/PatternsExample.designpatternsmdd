@@ -80,7 +80,7 @@
   </Packages>
   <Patterns>
     <observerPattern>
-      <ObseverPairs Observable="//@Packages/@Packages.0/ContentCreator" Observers="//@Packages/@Packages.0/ContentConsumer //@Packages/@Packages.0/NotifierBot"/>
+      <ObseverPairs Observable="//@Packages/@Packages.0/ContentCreator" Observers="//@Packages/@Packages.0/ContentConsumer //@Packages/@Packages.0/NotifierBot //@Packages/@Packages.0/Database"/>
     </observerPattern>
     <singletonPattern SingletonClasses="//@Packages/@Packages.0/Database"/>
     <builderPattern BuilderClasses="//@Packages/@Packages.0/ContentCreator"/>

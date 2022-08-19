@@ -16,8 +16,6 @@ class Builder: DesignPattern() {
         val builder = javaFile(pkg.name) {
             `abstract class`(e.name + "Builder") {
                 modifiers(public)
-                genExtendIfNeeded(e, pkg)
-
                 // Create builder
                 val typeName = ClassName.get(pkg.name, e.name)
                 val builderTypeName = ClassName.get(pkg.name, "${e.name}Builder")
@@ -33,7 +31,7 @@ class Builder: DesignPattern() {
                         param(a.poetTypeName, a.name)
                     )
                     {
-                        statement("this.instance.set${a.name}(${a.name})")
+                        statement("this.instance.${camelCase("set", a.name)}(${a.name})")
                         `return`("this")
                     }
                 }
@@ -44,7 +42,7 @@ class Builder: DesignPattern() {
                         param(r.poetTypeName(pkg), r.name)
                     )
                     {
-                        statement("this.instance.set${r.name}(${r.name})")
+                        statement("this.instance.${camelCase("set", r.name)}(${r.name})")
                         `return`("this")
                     }
                 }
