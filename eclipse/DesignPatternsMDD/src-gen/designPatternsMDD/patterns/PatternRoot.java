@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link designPatternsMDD.patterns.PatternRoot#getObserverPattern <em>Observer Pattern</em>}</li>
  *   <li>{@link designPatternsMDD.patterns.PatternRoot#getSingletonPattern <em>Singleton Pattern</em>}</li>
  *   <li>{@link designPatternsMDD.patterns.PatternRoot#getBuilderPattern <em>Builder Pattern</em>}</li>
+ *   <li>{@link designPatternsMDD.patterns.PatternRoot#getFactoryPattern <em>Factory Pattern</em>}</li>
+ *   <li>{@link designPatternsMDD.patterns.PatternRoot#getStatePattern <em>State Pattern</em>}</li>
  * </ul>
  *
  * @see designPatternsMDD.patterns.PatternsPackage#getPatternRoot()
@@ -92,5 +94,49 @@ public interface PatternRoot extends EObject {
 	 * @generated
 	 */
 	void setBuilderPattern(BuilderPattern value);
+
+	/**
+	 * Returns the value of the '<em><b>Factory Pattern</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Factory Pattern</em>' containment reference.
+	 * @see #setFactoryPattern(FactoryPattern)
+	 * @see designPatternsMDD.patterns.PatternsPackage#getPatternRoot_FactoryPattern()
+	 * @model containment="true"
+	 * @generated
+	 */
+	FactoryPattern getFactoryPattern();
+
+	/**
+	 * Sets the value of the '{@link designPatternsMDD.patterns.PatternRoot#getFactoryPattern <em>Factory Pattern</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Factory Pattern</em>' containment reference.
+	 * @see #getFactoryPattern()
+	 * @generated
+	 */
+	void setFactoryPattern(FactoryPattern value);
+
+	/**
+	 * Returns the value of the '<em><b>State Pattern</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>State Pattern</em>' containment reference.
+	 * @see #setStatePattern(StatePattern)
+	 * @see designPatternsMDD.patterns.PatternsPackage#getPatternRoot_StatePattern()
+	 * @model containment="true"
+	 * @generated
+	 */
+	StatePattern getStatePattern();
+
+	/**
+	 * Sets the value of the '{@link designPatternsMDD.patterns.PatternRoot#getStatePattern <em>State Pattern</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>State Pattern</em>' containment reference.
+	 * @see #getStatePattern()
+	 * @generated
+	 */
+	void setStatePattern(StatePattern value);
 
 } // PatternRoot

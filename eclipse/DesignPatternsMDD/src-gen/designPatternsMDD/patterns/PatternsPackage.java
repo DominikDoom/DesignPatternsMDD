@@ -2,6 +2,7 @@
  */
 package designPatternsMDD.patterns;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -93,13 +94,31 @@ public interface PatternsPackage extends EPackage {
 	int PATTERN_ROOT__BUILDER_PATTERN = 2;
 
 	/**
+	 * The feature id for the '<em><b>Factory Pattern</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PATTERN_ROOT__FACTORY_PATTERN = 3;
+
+	/**
+	 * The feature id for the '<em><b>State Pattern</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PATTERN_ROOT__STATE_PATTERN = 4;
+
+	/**
 	 * The number of structural features of the '<em>Pattern Root</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PATTERN_ROOT_FEATURE_COUNT = 3;
+	int PATTERN_ROOT_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Pattern Root</em>' class.
@@ -268,6 +287,126 @@ public interface PatternsPackage extends EPackage {
 	int OBSERVER_PAIR_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link designPatternsMDD.patterns.impl.FactoryPatternImpl <em>Factory Pattern</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see designPatternsMDD.patterns.impl.FactoryPatternImpl
+	 * @see designPatternsMDD.patterns.impl.PatternsPackageImpl#getFactoryPattern()
+	 * @generated
+	 */
+	int FACTORY_PATTERN = 5;
+
+	/**
+	 * The feature id for the '<em><b>Factory Groups</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FACTORY_PATTERN__FACTORY_GROUPS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Factory Pattern</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FACTORY_PATTERN_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Factory Pattern</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FACTORY_PATTERN_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link designPatternsMDD.patterns.impl.StatePatternImpl <em>State Pattern</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see designPatternsMDD.patterns.impl.StatePatternImpl
+	 * @see designPatternsMDD.patterns.impl.PatternsPackageImpl#getStatePattern()
+	 * @generated
+	 */
+	int STATE_PATTERN = 6;
+
+	/**
+	 * The feature id for the '<em><b>State Classes</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_PATTERN__STATE_CLASSES = 0;
+
+	/**
+	 * The number of structural features of the '<em>State Pattern</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_PATTERN_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>State Pattern</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_PATTERN_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link designPatternsMDD.patterns.impl.FactoryGroupImpl <em>Factory Group</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see designPatternsMDD.patterns.impl.FactoryGroupImpl
+	 * @see designPatternsMDD.patterns.impl.PatternsPackageImpl#getFactoryGroup()
+	 * @generated
+	 */
+	int FACTORY_GROUP = 7;
+
+	/**
+	 * The feature id for the '<em><b>Group Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FACTORY_GROUP__GROUP_NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Factory Classes</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FACTORY_GROUP__FACTORY_CLASSES = 1;
+
+	/**
+	 * The number of structural features of the '<em>Factory Group</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FACTORY_GROUP_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Factory Group</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FACTORY_GROUP_OPERATION_COUNT = 0;
+
+	/**
 	 * Returns the meta object for class '{@link designPatternsMDD.patterns.PatternRoot <em>Pattern Root</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -309,6 +448,28 @@ public interface PatternsPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getPatternRoot_BuilderPattern();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link designPatternsMDD.patterns.PatternRoot#getFactoryPattern <em>Factory Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Factory Pattern</em>'.
+	 * @see designPatternsMDD.patterns.PatternRoot#getFactoryPattern()
+	 * @see #getPatternRoot()
+	 * @generated
+	 */
+	EReference getPatternRoot_FactoryPattern();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link designPatternsMDD.patterns.PatternRoot#getStatePattern <em>State Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>State Pattern</em>'.
+	 * @see designPatternsMDD.patterns.PatternRoot#getStatePattern()
+	 * @see #getPatternRoot()
+	 * @generated
+	 */
+	EReference getPatternRoot_StatePattern();
 
 	/**
 	 * Returns the meta object for class '{@link designPatternsMDD.patterns.ObserverPattern <em>Observer Pattern</em>}'.
@@ -406,6 +567,80 @@ public interface PatternsPackage extends EPackage {
 	EReference getObserverPair_Observers();
 
 	/**
+	 * Returns the meta object for class '{@link designPatternsMDD.patterns.FactoryPattern <em>Factory Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Factory Pattern</em>'.
+	 * @see designPatternsMDD.patterns.FactoryPattern
+	 * @generated
+	 */
+	EClass getFactoryPattern();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link designPatternsMDD.patterns.FactoryPattern#getFactoryGroups <em>Factory Groups</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Factory Groups</em>'.
+	 * @see designPatternsMDD.patterns.FactoryPattern#getFactoryGroups()
+	 * @see #getFactoryPattern()
+	 * @generated
+	 */
+	EReference getFactoryPattern_FactoryGroups();
+
+	/**
+	 * Returns the meta object for class '{@link designPatternsMDD.patterns.StatePattern <em>State Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>State Pattern</em>'.
+	 * @see designPatternsMDD.patterns.StatePattern
+	 * @generated
+	 */
+	EClass getStatePattern();
+
+	/**
+	 * Returns the meta object for the reference list '{@link designPatternsMDD.patterns.StatePattern#getStateClasses <em>State Classes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>State Classes</em>'.
+	 * @see designPatternsMDD.patterns.StatePattern#getStateClasses()
+	 * @see #getStatePattern()
+	 * @generated
+	 */
+	EReference getStatePattern_StateClasses();
+
+	/**
+	 * Returns the meta object for class '{@link designPatternsMDD.patterns.FactoryGroup <em>Factory Group</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Factory Group</em>'.
+	 * @see designPatternsMDD.patterns.FactoryGroup
+	 * @generated
+	 */
+	EClass getFactoryGroup();
+
+	/**
+	 * Returns the meta object for the attribute '{@link designPatternsMDD.patterns.FactoryGroup#getGroupName <em>Group Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Group Name</em>'.
+	 * @see designPatternsMDD.patterns.FactoryGroup#getGroupName()
+	 * @see #getFactoryGroup()
+	 * @generated
+	 */
+	EAttribute getFactoryGroup_GroupName();
+
+	/**
+	 * Returns the meta object for the reference list '{@link designPatternsMDD.patterns.FactoryGroup#getFactoryClasses <em>Factory Classes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Factory Classes</em>'.
+	 * @see designPatternsMDD.patterns.FactoryGroup#getFactoryClasses()
+	 * @see #getFactoryGroup()
+	 * @generated
+	 */
+	EReference getFactoryGroup_FactoryClasses();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -461,6 +696,22 @@ public interface PatternsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PATTERN_ROOT__BUILDER_PATTERN = eINSTANCE.getPatternRoot_BuilderPattern();
+
+		/**
+		 * The meta object literal for the '<em><b>Factory Pattern</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PATTERN_ROOT__FACTORY_PATTERN = eINSTANCE.getPatternRoot_FactoryPattern();
+
+		/**
+		 * The meta object literal for the '<em><b>State Pattern</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PATTERN_ROOT__STATE_PATTERN = eINSTANCE.getPatternRoot_StatePattern();
 
 		/**
 		 * The meta object literal for the '{@link designPatternsMDD.patterns.impl.ObserverPatternImpl <em>Observer Pattern</em>}' class.
@@ -541,6 +792,68 @@ public interface PatternsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference OBSERVER_PAIR__OBSERVERS = eINSTANCE.getObserverPair_Observers();
+
+		/**
+		 * The meta object literal for the '{@link designPatternsMDD.patterns.impl.FactoryPatternImpl <em>Factory Pattern</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see designPatternsMDD.patterns.impl.FactoryPatternImpl
+		 * @see designPatternsMDD.patterns.impl.PatternsPackageImpl#getFactoryPattern()
+		 * @generated
+		 */
+		EClass FACTORY_PATTERN = eINSTANCE.getFactoryPattern();
+
+		/**
+		 * The meta object literal for the '<em><b>Factory Groups</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FACTORY_PATTERN__FACTORY_GROUPS = eINSTANCE.getFactoryPattern_FactoryGroups();
+
+		/**
+		 * The meta object literal for the '{@link designPatternsMDD.patterns.impl.StatePatternImpl <em>State Pattern</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see designPatternsMDD.patterns.impl.StatePatternImpl
+		 * @see designPatternsMDD.patterns.impl.PatternsPackageImpl#getStatePattern()
+		 * @generated
+		 */
+		EClass STATE_PATTERN = eINSTANCE.getStatePattern();
+
+		/**
+		 * The meta object literal for the '<em><b>State Classes</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STATE_PATTERN__STATE_CLASSES = eINSTANCE.getStatePattern_StateClasses();
+
+		/**
+		 * The meta object literal for the '{@link designPatternsMDD.patterns.impl.FactoryGroupImpl <em>Factory Group</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see designPatternsMDD.patterns.impl.FactoryGroupImpl
+		 * @see designPatternsMDD.patterns.impl.PatternsPackageImpl#getFactoryGroup()
+		 * @generated
+		 */
+		EClass FACTORY_GROUP = eINSTANCE.getFactoryGroup();
+
+		/**
+		 * The meta object literal for the '<em><b>Group Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FACTORY_GROUP__GROUP_NAME = eINSTANCE.getFactoryGroup_GroupName();
+
+		/**
+		 * The meta object literal for the '<em><b>Factory Classes</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FACTORY_GROUP__FACTORY_CLASSES = eINSTANCE.getFactoryGroup_FactoryClasses();
 
 	}
 

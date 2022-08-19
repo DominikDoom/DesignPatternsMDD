@@ -2,18 +2,11 @@
  */
 package designPatternsMDD.patterns.impl;
 
-import designPatternsMDD.patterns.BuilderPattern;
-import designPatternsMDD.patterns.ObserverPattern;
-import designPatternsMDD.patterns.PatternRoot;
-import designPatternsMDD.patterns.PatternsPackage;
-import designPatternsMDD.patterns.SingletonPattern;
-
+import designPatternsMDD.patterns.*;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
@@ -28,6 +21,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link designPatternsMDD.patterns.impl.PatternRootImpl#getObserverPattern <em>Observer Pattern</em>}</li>
  *   <li>{@link designPatternsMDD.patterns.impl.PatternRootImpl#getSingletonPattern <em>Singleton Pattern</em>}</li>
  *   <li>{@link designPatternsMDD.patterns.impl.PatternRootImpl#getBuilderPattern <em>Builder Pattern</em>}</li>
+ *   <li>{@link designPatternsMDD.patterns.impl.PatternRootImpl#getFactoryPattern <em>Factory Pattern</em>}</li>
+ *   <li>{@link designPatternsMDD.patterns.impl.PatternRootImpl#getStatePattern <em>State Pattern</em>}</li>
  * </ul>
  *
  * @generated
@@ -62,6 +57,26 @@ public class PatternRootImpl extends MinimalEObjectImpl.Container implements Pat
 	 * @ordered
 	 */
 	protected BuilderPattern builderPattern;
+
+	/**
+	 * The cached value of the '{@link #getFactoryPattern() <em>Factory Pattern</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFactoryPattern()
+	 * @generated
+	 * @ordered
+	 */
+	protected FactoryPattern factoryPattern;
+
+	/**
+	 * The cached value of the '{@link #getStatePattern() <em>State Pattern</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStatePattern()
+	 * @generated
+	 * @ordered
+	 */
+	protected StatePattern statePattern;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -237,6 +252,106 @@ public class PatternRootImpl extends MinimalEObjectImpl.Container implements Pat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public FactoryPattern getFactoryPattern() {
+		return factoryPattern;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetFactoryPattern(FactoryPattern newFactoryPattern, NotificationChain msgs) {
+		FactoryPattern oldFactoryPattern = factoryPattern;
+		factoryPattern = newFactoryPattern;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					PatternsPackage.PATTERN_ROOT__FACTORY_PATTERN, oldFactoryPattern, newFactoryPattern);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFactoryPattern(FactoryPattern newFactoryPattern) {
+		if (newFactoryPattern != factoryPattern) {
+			NotificationChain msgs = null;
+			if (factoryPattern != null)
+				msgs = ((InternalEObject) factoryPattern).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - PatternsPackage.PATTERN_ROOT__FACTORY_PATTERN, null, msgs);
+			if (newFactoryPattern != null)
+				msgs = ((InternalEObject) newFactoryPattern).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - PatternsPackage.PATTERN_ROOT__FACTORY_PATTERN, null, msgs);
+			msgs = basicSetFactoryPattern(newFactoryPattern, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PatternsPackage.PATTERN_ROOT__FACTORY_PATTERN,
+					newFactoryPattern, newFactoryPattern));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StatePattern getStatePattern() {
+		return statePattern;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetStatePattern(StatePattern newStatePattern, NotificationChain msgs) {
+		StatePattern oldStatePattern = statePattern;
+		statePattern = newStatePattern;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					PatternsPackage.PATTERN_ROOT__STATE_PATTERN, oldStatePattern, newStatePattern);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStatePattern(StatePattern newStatePattern) {
+		if (newStatePattern != statePattern) {
+			NotificationChain msgs = null;
+			if (statePattern != null)
+				msgs = ((InternalEObject) statePattern).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - PatternsPackage.PATTERN_ROOT__STATE_PATTERN, null, msgs);
+			if (newStatePattern != null)
+				msgs = ((InternalEObject) newStatePattern).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - PatternsPackage.PATTERN_ROOT__STATE_PATTERN, null, msgs);
+			msgs = basicSetStatePattern(newStatePattern, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PatternsPackage.PATTERN_ROOT__STATE_PATTERN,
+					newStatePattern, newStatePattern));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -246,6 +361,10 @@ public class PatternRootImpl extends MinimalEObjectImpl.Container implements Pat
 			return basicSetSingletonPattern(null, msgs);
 		case PatternsPackage.PATTERN_ROOT__BUILDER_PATTERN:
 			return basicSetBuilderPattern(null, msgs);
+		case PatternsPackage.PATTERN_ROOT__FACTORY_PATTERN:
+			return basicSetFactoryPattern(null, msgs);
+		case PatternsPackage.PATTERN_ROOT__STATE_PATTERN:
+			return basicSetStatePattern(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -264,6 +383,10 @@ public class PatternRootImpl extends MinimalEObjectImpl.Container implements Pat
 			return getSingletonPattern();
 		case PatternsPackage.PATTERN_ROOT__BUILDER_PATTERN:
 			return getBuilderPattern();
+		case PatternsPackage.PATTERN_ROOT__FACTORY_PATTERN:
+			return getFactoryPattern();
+		case PatternsPackage.PATTERN_ROOT__STATE_PATTERN:
+			return getStatePattern();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -284,6 +407,12 @@ public class PatternRootImpl extends MinimalEObjectImpl.Container implements Pat
 			return;
 		case PatternsPackage.PATTERN_ROOT__BUILDER_PATTERN:
 			setBuilderPattern((BuilderPattern) newValue);
+			return;
+		case PatternsPackage.PATTERN_ROOT__FACTORY_PATTERN:
+			setFactoryPattern((FactoryPattern) newValue);
+			return;
+		case PatternsPackage.PATTERN_ROOT__STATE_PATTERN:
+			setStatePattern((StatePattern) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -306,6 +435,12 @@ public class PatternRootImpl extends MinimalEObjectImpl.Container implements Pat
 		case PatternsPackage.PATTERN_ROOT__BUILDER_PATTERN:
 			setBuilderPattern((BuilderPattern) null);
 			return;
+		case PatternsPackage.PATTERN_ROOT__FACTORY_PATTERN:
+			setFactoryPattern((FactoryPattern) null);
+			return;
+		case PatternsPackage.PATTERN_ROOT__STATE_PATTERN:
+			setStatePattern((StatePattern) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -324,6 +459,10 @@ public class PatternRootImpl extends MinimalEObjectImpl.Container implements Pat
 			return singletonPattern != null;
 		case PatternsPackage.PATTERN_ROOT__BUILDER_PATTERN:
 			return builderPattern != null;
+		case PatternsPackage.PATTERN_ROOT__FACTORY_PATTERN:
+			return factoryPattern != null;
+		case PatternsPackage.PATTERN_ROOT__STATE_PATTERN:
+			return statePattern != null;
 		}
 		return super.eIsSet(featureID);
 	}

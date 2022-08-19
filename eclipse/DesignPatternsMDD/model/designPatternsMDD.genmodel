@@ -21,6 +21,8 @@
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference designPatternsMDD.ecore#//patterns/PatternRoot/observerPattern"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference designPatternsMDD.ecore#//patterns/PatternRoot/singletonPattern"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference designPatternsMDD.ecore#//patterns/PatternRoot/builderPattern"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference designPatternsMDD.ecore#//patterns/PatternRoot/factoryPattern"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference designPatternsMDD.ecore#//patterns/PatternRoot/statePattern"/>
       </genClasses>
       <genClasses ecoreClass="designPatternsMDD.ecore#//patterns/ObserverPattern">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference designPatternsMDD.ecore#//patterns/ObserverPattern/ObseverPairs"/>
@@ -38,6 +40,18 @@
             ecoreFeature="ecore:EReference designPatternsMDD.ecore#//patterns/ObserverPair/Observable"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference designPatternsMDD.ecore#//patterns/ObserverPair/Observers"/>
+      </genClasses>
+      <genClasses ecoreClass="designPatternsMDD.ecore#//patterns/FactoryPattern">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference designPatternsMDD.ecore#//patterns/FactoryPattern/FactoryGroups"/>
+      </genClasses>
+      <genClasses ecoreClass="designPatternsMDD.ecore#//patterns/StatePattern">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference designPatternsMDD.ecore#//patterns/StatePattern/StateClasses"/>
+      </genClasses>
+      <genClasses ecoreClass="designPatternsMDD.ecore#//patterns/FactoryGroup">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute designPatternsMDD.ecore#//patterns/FactoryGroup/GroupName"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference designPatternsMDD.ecore#//patterns/FactoryGroup/FactoryClasses"/>
       </genClasses>
     </nestedGenPackages>
   </genPackages>

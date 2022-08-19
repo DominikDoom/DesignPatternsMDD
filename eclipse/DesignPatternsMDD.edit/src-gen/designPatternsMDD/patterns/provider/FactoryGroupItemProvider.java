@@ -2,8 +2,7 @@
  */
 package designPatternsMDD.patterns.provider;
 
-import designPatternsMDD.patterns.PatternRoot;
-import designPatternsMDD.patterns.PatternsFactory;
+import designPatternsMDD.patterns.FactoryGroup;
 import designPatternsMDD.patterns.PatternsPackage;
 
 import designPatternsMDD.provider.DesignPatternsMDDEditPlugin;
@@ -16,24 +15,24 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
-import org.eclipse.emf.ecore.EStructuralFeature;
-
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link designPatternsMDD.patterns.PatternRoot} object.
+ * This is the item provider adapter for a {@link designPatternsMDD.patterns.FactoryGroup} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class PatternRootItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+public class FactoryGroupItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
 		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
@@ -41,7 +40,7 @@ public class PatternRootItemProvider extends ItemProviderAdapter implements IEdi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PatternRootItemProvider(AdapterFactory adapterFactory) {
+	public FactoryGroupItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -56,53 +55,52 @@ public class PatternRootItemProvider extends ItemProviderAdapter implements IEdi
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addGroupNamePropertyDescriptor(object);
+			addFactoryClassesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * This adds a property descriptor for the Group Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(PatternsPackage.Literals.PATTERN_ROOT__OBSERVER_PATTERN);
-			childrenFeatures.add(PatternsPackage.Literals.PATTERN_ROOT__SINGLETON_PATTERN);
-			childrenFeatures.add(PatternsPackage.Literals.PATTERN_ROOT__BUILDER_PATTERN);
-			childrenFeatures.add(PatternsPackage.Literals.PATTERN_ROOT__FACTORY_PATTERN);
-			childrenFeatures.add(PatternsPackage.Literals.PATTERN_ROOT__STATE_PATTERN);
-		}
-		return childrenFeatures;
+	protected void addGroupNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_FactoryGroup_GroupName_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_FactoryGroup_GroupName_feature",
+								"_UI_FactoryGroup_type"),
+						PatternsPackage.Literals.FACTORY_GROUP__GROUP_NAME, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
+	 * This adds a property descriptor for the Factory Classes feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
+	protected void addFactoryClassesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_FactoryGroup_FactoryClasses_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_FactoryGroup_FactoryClasses_feature",
+								"_UI_FactoryGroup_type"),
+						PatternsPackage.Literals.FACTORY_GROUP__FACTORY_CLASSES, true, false, true, null, null, null));
 	}
 
 	/**
-	 * This returns PatternRoot.gif.
+	 * This returns FactoryGroup.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/PatternRoot"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FactoryGroup"));
 	}
 
 	/**
@@ -123,7 +121,9 @@ public class PatternRootItemProvider extends ItemProviderAdapter implements IEdi
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_PatternRoot_type");
+		String label = ((FactoryGroup) object).getGroupName();
+		return label == null || label.length() == 0 ? getString("_UI_FactoryGroup_type")
+				: getString("_UI_FactoryGroup_type") + " " + label;
 	}
 
 	/**
@@ -137,13 +137,9 @@ public class PatternRootItemProvider extends ItemProviderAdapter implements IEdi
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(PatternRoot.class)) {
-		case PatternsPackage.PATTERN_ROOT__OBSERVER_PATTERN:
-		case PatternsPackage.PATTERN_ROOT__SINGLETON_PATTERN:
-		case PatternsPackage.PATTERN_ROOT__BUILDER_PATTERN:
-		case PatternsPackage.PATTERN_ROOT__FACTORY_PATTERN:
-		case PatternsPackage.PATTERN_ROOT__STATE_PATTERN:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+		switch (notification.getFeatureID(FactoryGroup.class)) {
+		case PatternsPackage.FACTORY_GROUP__GROUP_NAME:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -159,21 +155,6 @@ public class PatternRootItemProvider extends ItemProviderAdapter implements IEdi
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add(createChildParameter(PatternsPackage.Literals.PATTERN_ROOT__OBSERVER_PATTERN,
-				PatternsFactory.eINSTANCE.createObserverPattern()));
-
-		newChildDescriptors.add(createChildParameter(PatternsPackage.Literals.PATTERN_ROOT__SINGLETON_PATTERN,
-				PatternsFactory.eINSTANCE.createSingletonPattern()));
-
-		newChildDescriptors.add(createChildParameter(PatternsPackage.Literals.PATTERN_ROOT__BUILDER_PATTERN,
-				PatternsFactory.eINSTANCE.createBuilderPattern()));
-
-		newChildDescriptors.add(createChildParameter(PatternsPackage.Literals.PATTERN_ROOT__FACTORY_PATTERN,
-				PatternsFactory.eINSTANCE.createFactoryPattern()));
-
-		newChildDescriptors.add(createChildParameter(PatternsPackage.Literals.PATTERN_ROOT__STATE_PATTERN,
-				PatternsFactory.eINSTANCE.createStatePattern()));
 	}
 
 	/**

@@ -3,12 +3,9 @@
 package designPatternsMDD.patterns.util;
 
 import designPatternsMDD.patterns.*;
-
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -89,6 +86,21 @@ public class PatternsAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseObserverPair(ObserverPair object) {
 			return createObserverPairAdapter();
+		}
+
+		@Override
+		public Adapter caseFactoryPattern(FactoryPattern object) {
+			return createFactoryPatternAdapter();
+		}
+
+		@Override
+		public Adapter caseStatePattern(StatePattern object) {
+			return createStatePatternAdapter();
+		}
+
+		@Override
+		public Adapter caseFactoryGroup(FactoryGroup object) {
+			return createFactoryGroupAdapter();
 		}
 
 		@Override
@@ -177,6 +189,48 @@ public class PatternsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createObserverPairAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link designPatternsMDD.patterns.FactoryPattern <em>Factory Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see designPatternsMDD.patterns.FactoryPattern
+	 * @generated
+	 */
+	public Adapter createFactoryPatternAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link designPatternsMDD.patterns.StatePattern <em>State Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see designPatternsMDD.patterns.StatePattern
+	 * @generated
+	 */
+	public Adapter createStatePatternAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link designPatternsMDD.patterns.FactoryGroup <em>Factory Group</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see designPatternsMDD.patterns.FactoryGroup
+	 * @generated
+	 */
+	public Adapter createFactoryGroupAdapter() {
 		return null;
 	}
 

@@ -3,10 +3,8 @@
 package designPatternsMDD.patterns.util;
 
 import designPatternsMDD.patterns.*;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
 
 /**
@@ -101,6 +99,27 @@ public class PatternsSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case PatternsPackage.FACTORY_PATTERN: {
+			FactoryPattern factoryPattern = (FactoryPattern) theEObject;
+			T result = caseFactoryPattern(factoryPattern);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case PatternsPackage.STATE_PATTERN: {
+			StatePattern statePattern = (StatePattern) theEObject;
+			T result = caseStatePattern(statePattern);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case PatternsPackage.FACTORY_GROUP: {
+			FactoryGroup factoryGroup = (FactoryGroup) theEObject;
+			T result = caseFactoryGroup(factoryGroup);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -178,6 +197,51 @@ public class PatternsSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseObserverPair(ObserverPair object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Factory Pattern</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Factory Pattern</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFactoryPattern(FactoryPattern object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>State Pattern</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>State Pattern</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStatePattern(StatePattern object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Factory Group</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Factory Group</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFactoryGroup(FactoryGroup object) {
 		return null;
 	}
 

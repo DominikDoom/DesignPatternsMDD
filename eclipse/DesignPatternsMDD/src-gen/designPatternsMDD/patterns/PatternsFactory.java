@@ -67,6 +67,33 @@ public interface PatternsFactory extends EFactory {
 	ObserverPair createObserverPair();
 
 	/**
+	 * Returns a new object of class '<em>Factory Pattern</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Factory Pattern</em>'.
+	 * @generated
+	 */
+	FactoryPattern createFactoryPattern();
+
+	/**
+	 * Returns a new object of class '<em>State Pattern</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>State Pattern</em>'.
+	 * @generated
+	 */
+	StatePattern createStatePattern();
+
+	/**
+	 * Returns a new object of class '<em>Factory Group</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Factory Group</em>'.
+	 * @generated
+	 */
+	FactoryGroup createFactoryGroup();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

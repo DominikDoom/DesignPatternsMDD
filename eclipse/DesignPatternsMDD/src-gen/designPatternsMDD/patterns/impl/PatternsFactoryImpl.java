@@ -3,13 +3,10 @@
 package designPatternsMDD.patterns.impl;
 
 import designPatternsMDD.patterns.*;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 /**
@@ -66,6 +63,12 @@ public class PatternsFactoryImpl extends EFactoryImpl implements PatternsFactory
 			return createBuilderPattern();
 		case PatternsPackage.OBSERVER_PAIR:
 			return createObserverPair();
+		case PatternsPackage.FACTORY_PATTERN:
+			return createFactoryPattern();
+		case PatternsPackage.STATE_PATTERN:
+			return createStatePattern();
+		case PatternsPackage.FACTORY_GROUP:
+			return createFactoryGroup();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -119,6 +122,36 @@ public class PatternsFactoryImpl extends EFactoryImpl implements PatternsFactory
 	public ObserverPair createObserverPair() {
 		ObserverPairImpl observerPair = new ObserverPairImpl();
 		return observerPair;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FactoryPattern createFactoryPattern() {
+		FactoryPatternImpl factoryPattern = new FactoryPatternImpl();
+		return factoryPattern;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StatePattern createStatePattern() {
+		StatePatternImpl statePattern = new StatePatternImpl();
+		return statePattern;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FactoryGroup createFactoryGroup() {
+		FactoryGroupImpl factoryGroup = new FactoryGroupImpl();
+		return factoryGroup;
 	}
 
 	/**

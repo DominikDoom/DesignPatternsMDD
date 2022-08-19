@@ -3,26 +3,11 @@
 package designPatternsMDD.patterns.impl;
 
 import designPatternsMDD.DesignPatternsMDDPackage;
-
 import designPatternsMDD.impl.DesignPatternsMDDPackageImpl;
-
 import designPatternsMDD.packages.PackagesPackage;
-
 import designPatternsMDD.packages.impl.PackagesPackageImpl;
-
-import designPatternsMDD.patterns.BuilderPattern;
-import designPatternsMDD.patterns.ObserverPair;
-import designPatternsMDD.patterns.ObserverPattern;
-import designPatternsMDD.patterns.PatternRoot;
-import designPatternsMDD.patterns.PatternsFactory;
-import designPatternsMDD.patterns.PatternsPackage;
-import designPatternsMDD.patterns.SingletonPattern;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EcorePackage;
-
+import designPatternsMDD.patterns.*;
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**
@@ -66,6 +51,27 @@ public class PatternsPackageImpl extends EPackageImpl implements PatternsPackage
 	 * @generated
 	 */
 	private EClass observerPairEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass factoryPatternEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass statePatternEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass factoryGroupEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -189,6 +195,24 @@ public class PatternsPackageImpl extends EPackageImpl implements PatternsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getPatternRoot_FactoryPattern() {
+		return (EReference) patternRootEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPatternRoot_StatePattern() {
+		return (EReference) patternRootEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getObserverPattern() {
 		return observerPatternEClass;
 	}
@@ -270,6 +294,69 @@ public class PatternsPackageImpl extends EPackageImpl implements PatternsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getFactoryPattern() {
+		return factoryPatternEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFactoryPattern_FactoryGroups() {
+		return (EReference) factoryPatternEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getStatePattern() {
+		return statePatternEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getStatePattern_StateClasses() {
+		return (EReference) statePatternEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFactoryGroup() {
+		return factoryGroupEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFactoryGroup_GroupName() {
+		return (EAttribute) factoryGroupEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFactoryGroup_FactoryClasses() {
+		return (EReference) factoryGroupEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public PatternsFactory getPatternsFactory() {
 		return (PatternsFactory) getEFactoryInstance();
 	}
@@ -298,6 +385,8 @@ public class PatternsPackageImpl extends EPackageImpl implements PatternsPackage
 		createEReference(patternRootEClass, PATTERN_ROOT__OBSERVER_PATTERN);
 		createEReference(patternRootEClass, PATTERN_ROOT__SINGLETON_PATTERN);
 		createEReference(patternRootEClass, PATTERN_ROOT__BUILDER_PATTERN);
+		createEReference(patternRootEClass, PATTERN_ROOT__FACTORY_PATTERN);
+		createEReference(patternRootEClass, PATTERN_ROOT__STATE_PATTERN);
 
 		observerPatternEClass = createEClass(OBSERVER_PATTERN);
 		createEReference(observerPatternEClass, OBSERVER_PATTERN__OBSEVER_PAIRS);
@@ -311,6 +400,16 @@ public class PatternsPackageImpl extends EPackageImpl implements PatternsPackage
 		observerPairEClass = createEClass(OBSERVER_PAIR);
 		createEReference(observerPairEClass, OBSERVER_PAIR__OBSERVABLE);
 		createEReference(observerPairEClass, OBSERVER_PAIR__OBSERVERS);
+
+		factoryPatternEClass = createEClass(FACTORY_PATTERN);
+		createEReference(factoryPatternEClass, FACTORY_PATTERN__FACTORY_GROUPS);
+
+		statePatternEClass = createEClass(STATE_PATTERN);
+		createEReference(statePatternEClass, STATE_PATTERN__STATE_CLASSES);
+
+		factoryGroupEClass = createEClass(FACTORY_GROUP);
+		createEAttribute(factoryGroupEClass, FACTORY_GROUP__GROUP_NAME);
+		createEReference(factoryGroupEClass, FACTORY_GROUP__FACTORY_CLASSES);
 	}
 
 	/**
@@ -358,6 +457,12 @@ public class PatternsPackageImpl extends EPackageImpl implements PatternsPackage
 		initEReference(getPatternRoot_BuilderPattern(), this.getBuilderPattern(), null, "builderPattern", null, 0, 1,
 				PatternRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPatternRoot_FactoryPattern(), this.getFactoryPattern(), null, "factoryPattern", null, 0, 1,
+				PatternRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPatternRoot_StatePattern(), this.getStatePattern(), null, "statePattern", null, 0, 1,
+				PatternRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(observerPatternEClass, ObserverPattern.class, "ObserverPattern", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -384,6 +489,27 @@ public class PatternsPackageImpl extends EPackageImpl implements PatternsPackage
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getObserverPair_Observers(), theEcorePackage.getEClass(), null, "Observers", null, 1, -1,
 				ObserverPair.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(factoryPatternEClass, FactoryPattern.class, "FactoryPattern", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getFactoryPattern_FactoryGroups(), this.getFactoryGroup(), null, "FactoryGroups", null, 1, -1,
+				FactoryPattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(statePatternEClass, StatePattern.class, "StatePattern", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getStatePattern_StateClasses(), theEcorePackage.getEClass(), null, "StateClasses", null, 1, -1,
+				StatePattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(factoryGroupEClass, FactoryGroup.class, "FactoryGroup", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getFactoryGroup_GroupName(), theEcorePackage.getEString(), "GroupName", null, 0, 1,
+				FactoryGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
+		initEReference(getFactoryGroup_FactoryClasses(), theEcorePackage.getEClass(), null, "FactoryClasses", null, 1,
+				-1, FactoryGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 

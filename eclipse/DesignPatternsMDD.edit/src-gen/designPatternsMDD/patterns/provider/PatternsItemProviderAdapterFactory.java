@@ -188,6 +188,75 @@ public class PatternsItemProviderAdapterFactory extends PatternsAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link designPatternsMDD.patterns.FactoryPattern} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FactoryPatternItemProvider factoryPatternItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link designPatternsMDD.patterns.FactoryPattern}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFactoryPatternAdapter() {
+		if (factoryPatternItemProvider == null) {
+			factoryPatternItemProvider = new FactoryPatternItemProvider(this);
+		}
+
+		return factoryPatternItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link designPatternsMDD.patterns.StatePattern} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected StatePatternItemProvider statePatternItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link designPatternsMDD.patterns.StatePattern}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createStatePatternAdapter() {
+		if (statePatternItemProvider == null) {
+			statePatternItemProvider = new StatePatternItemProvider(this);
+		}
+
+		return statePatternItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link designPatternsMDD.patterns.FactoryGroup} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FactoryGroupItemProvider factoryGroupItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link designPatternsMDD.patterns.FactoryGroup}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFactoryGroupAdapter() {
+		if (factoryGroupItemProvider == null) {
+			factoryGroupItemProvider = new FactoryGroupItemProvider(this);
+		}
+
+		return factoryGroupItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -296,6 +365,12 @@ public class PatternsItemProviderAdapterFactory extends PatternsAdapterFactory
 			builderPatternItemProvider.dispose();
 		if (observerPairItemProvider != null)
 			observerPairItemProvider.dispose();
+		if (factoryPatternItemProvider != null)
+			factoryPatternItemProvider.dispose();
+		if (statePatternItemProvider != null)
+			statePatternItemProvider.dispose();
+		if (factoryGroupItemProvider != null)
+			factoryGroupItemProvider.dispose();
 	}
 
 }

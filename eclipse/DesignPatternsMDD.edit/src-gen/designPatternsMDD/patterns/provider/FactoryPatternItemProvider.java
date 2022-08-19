@@ -2,7 +2,7 @@
  */
 package designPatternsMDD.patterns.provider;
 
-import designPatternsMDD.patterns.PatternRoot;
+import designPatternsMDD.patterns.FactoryPattern;
 import designPatternsMDD.patterns.PatternsFactory;
 import designPatternsMDD.patterns.PatternsPackage;
 
@@ -28,12 +28,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link designPatternsMDD.patterns.PatternRoot} object.
+ * This is the item provider adapter for a {@link designPatternsMDD.patterns.FactoryPattern} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class PatternRootItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+public class FactoryPatternItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
 		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
@@ -41,7 +41,7 @@ public class PatternRootItemProvider extends ItemProviderAdapter implements IEdi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PatternRootItemProvider(AdapterFactory adapterFactory) {
+	public FactoryPatternItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -72,11 +72,7 @@ public class PatternRootItemProvider extends ItemProviderAdapter implements IEdi
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(PatternsPackage.Literals.PATTERN_ROOT__OBSERVER_PATTERN);
-			childrenFeatures.add(PatternsPackage.Literals.PATTERN_ROOT__SINGLETON_PATTERN);
-			childrenFeatures.add(PatternsPackage.Literals.PATTERN_ROOT__BUILDER_PATTERN);
-			childrenFeatures.add(PatternsPackage.Literals.PATTERN_ROOT__FACTORY_PATTERN);
-			childrenFeatures.add(PatternsPackage.Literals.PATTERN_ROOT__STATE_PATTERN);
+			childrenFeatures.add(PatternsPackage.Literals.FACTORY_PATTERN__FACTORY_GROUPS);
 		}
 		return childrenFeatures;
 	}
@@ -95,14 +91,14 @@ public class PatternRootItemProvider extends ItemProviderAdapter implements IEdi
 	}
 
 	/**
-	 * This returns PatternRoot.gif.
+	 * This returns FactoryPattern.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/PatternRoot"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FactoryPattern"));
 	}
 
 	/**
@@ -123,7 +119,7 @@ public class PatternRootItemProvider extends ItemProviderAdapter implements IEdi
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_PatternRoot_type");
+		return getString("_UI_FactoryPattern_type");
 	}
 
 	/**
@@ -137,12 +133,8 @@ public class PatternRootItemProvider extends ItemProviderAdapter implements IEdi
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(PatternRoot.class)) {
-		case PatternsPackage.PATTERN_ROOT__OBSERVER_PATTERN:
-		case PatternsPackage.PATTERN_ROOT__SINGLETON_PATTERN:
-		case PatternsPackage.PATTERN_ROOT__BUILDER_PATTERN:
-		case PatternsPackage.PATTERN_ROOT__FACTORY_PATTERN:
-		case PatternsPackage.PATTERN_ROOT__STATE_PATTERN:
+		switch (notification.getFeatureID(FactoryPattern.class)) {
+		case PatternsPackage.FACTORY_PATTERN__FACTORY_GROUPS:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -160,20 +152,8 @@ public class PatternRootItemProvider extends ItemProviderAdapter implements IEdi
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(PatternsPackage.Literals.PATTERN_ROOT__OBSERVER_PATTERN,
-				PatternsFactory.eINSTANCE.createObserverPattern()));
-
-		newChildDescriptors.add(createChildParameter(PatternsPackage.Literals.PATTERN_ROOT__SINGLETON_PATTERN,
-				PatternsFactory.eINSTANCE.createSingletonPattern()));
-
-		newChildDescriptors.add(createChildParameter(PatternsPackage.Literals.PATTERN_ROOT__BUILDER_PATTERN,
-				PatternsFactory.eINSTANCE.createBuilderPattern()));
-
-		newChildDescriptors.add(createChildParameter(PatternsPackage.Literals.PATTERN_ROOT__FACTORY_PATTERN,
-				PatternsFactory.eINSTANCE.createFactoryPattern()));
-
-		newChildDescriptors.add(createChildParameter(PatternsPackage.Literals.PATTERN_ROOT__STATE_PATTERN,
-				PatternsFactory.eINSTANCE.createStatePattern()));
+		newChildDescriptors.add(createChildParameter(PatternsPackage.Literals.FACTORY_PATTERN__FACTORY_GROUPS,
+				PatternsFactory.eINSTANCE.createFactoryGroup()));
 	}
 
 	/**
