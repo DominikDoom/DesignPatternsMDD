@@ -41,7 +41,7 @@ the full path of all classes in this package will be `TestProject/src-gen/org/ex
 Additional packages containing pattern-specific utility classes may be created to prevent redundant declaration.
 
 ### Eclipse plugin usage
-When right clicking on a `.designpatternsmdd` instance model file or a folder containing them, select the "Generate Projects" option.
+When right-clicking on a `.designpatternsmdd` instance model file or a folder containing them, select the "Generate Projects" option.
 A dialog will open, in it select the compiled jar (see [Build](#build)) and the root output directory (e.g. <project name>/src-gen/).
 The plugin will automatically call the specified generator jar for the model or folder.
 <picture>

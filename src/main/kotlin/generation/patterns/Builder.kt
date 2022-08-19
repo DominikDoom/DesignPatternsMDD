@@ -4,7 +4,6 @@ import com.grosner.kpoet.*
 import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.TypeSpec
 import generation.Generator
-import generation.submethods.genExtendIfNeeded
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EPackage
 import util.camelCase
@@ -20,7 +19,7 @@ class Builder: DesignPattern() {
                 val typeName = ClassName.get(pkg.name, e.name)
                 val builderTypeName = ClassName.get(pkg.name, "${e.name}Builder")
                 `private field`(typeName, "instance")
-                `constructor`() {
+                `constructor` {
                     modifiers(public)
                     statement("this.instance = new ${e.name}()")
                 }
