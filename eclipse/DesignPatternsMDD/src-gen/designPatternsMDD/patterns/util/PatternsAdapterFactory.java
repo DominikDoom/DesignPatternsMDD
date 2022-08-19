@@ -104,6 +104,11 @@ public class PatternsAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseStateGroup(StateGroup object) {
+			return createStateGroupAdapter();
+		}
+
+		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -231,6 +236,20 @@ public class PatternsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFactoryGroupAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link designPatternsMDD.patterns.StateGroup <em>State Group</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see designPatternsMDD.patterns.StateGroup
+	 * @generated
+	 */
+	public Adapter createStateGroupAdapter() {
 		return null;
 	}
 

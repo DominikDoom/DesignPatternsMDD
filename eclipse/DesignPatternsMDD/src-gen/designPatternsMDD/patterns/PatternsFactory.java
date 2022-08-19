@@ -94,6 +94,15 @@ public interface PatternsFactory extends EFactory {
 	FactoryGroup createFactoryGroup();
 
 	/**
+	 * Returns a new object of class '<em>State Group</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>State Group</em>'.
+	 * @generated
+	 */
+	StateGroup createStateGroup();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

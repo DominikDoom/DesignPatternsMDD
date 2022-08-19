@@ -3,11 +3,15 @@
 package designPatternsMDD.patterns.impl;
 
 import designPatternsMDD.patterns.PatternsPackage;
+import designPatternsMDD.patterns.StateGroup;
 import designPatternsMDD.patterns.StatePattern;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 import java.util.Collection;
 
@@ -19,21 +23,21 @@ import java.util.Collection;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link designPatternsMDD.patterns.impl.StatePatternImpl#getStateClasses <em>State Classes</em>}</li>
+ *   <li>{@link designPatternsMDD.patterns.impl.StatePatternImpl#getStateGroups <em>State Groups</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class StatePatternImpl extends MinimalEObjectImpl.Container implements StatePattern {
 	/**
-	 * The cached value of the '{@link #getStateClasses() <em>State Classes</em>}' reference list.
+	 * The cached value of the '{@link #getStateGroups() <em>State Groups</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getStateClasses()
+	 * @see #getStateGroups()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<EClass> stateClasses;
+	protected EList<StateGroup> stateGroups;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -59,12 +63,26 @@ public class StatePatternImpl extends MinimalEObjectImpl.Container implements St
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<EClass> getStateClasses() {
-		if (stateClasses == null) {
-			stateClasses = new EObjectResolvingEList<EClass>(EClass.class, this,
-					PatternsPackage.STATE_PATTERN__STATE_CLASSES);
+	public EList<StateGroup> getStateGroups() {
+		if (stateGroups == null) {
+			stateGroups = new EObjectContainmentEList<StateGroup>(StateGroup.class, this,
+					PatternsPackage.STATE_PATTERN__STATE_GROUPS);
 		}
-		return stateClasses;
+		return stateGroups;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case PatternsPackage.STATE_PATTERN__STATE_GROUPS:
+			return ((InternalEList<?>) getStateGroups()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -75,8 +93,8 @@ public class StatePatternImpl extends MinimalEObjectImpl.Container implements St
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case PatternsPackage.STATE_PATTERN__STATE_CLASSES:
-			return getStateClasses();
+		case PatternsPackage.STATE_PATTERN__STATE_GROUPS:
+			return getStateGroups();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -90,9 +108,9 @@ public class StatePatternImpl extends MinimalEObjectImpl.Container implements St
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case PatternsPackage.STATE_PATTERN__STATE_CLASSES:
-			getStateClasses().clear();
-			getStateClasses().addAll((Collection<? extends EClass>) newValue);
+		case PatternsPackage.STATE_PATTERN__STATE_GROUPS:
+			getStateGroups().clear();
+			getStateGroups().addAll((Collection<? extends StateGroup>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -106,8 +124,8 @@ public class StatePatternImpl extends MinimalEObjectImpl.Container implements St
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case PatternsPackage.STATE_PATTERN__STATE_CLASSES:
-			getStateClasses().clear();
+		case PatternsPackage.STATE_PATTERN__STATE_GROUPS:
+			getStateGroups().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -121,8 +139,8 @@ public class StatePatternImpl extends MinimalEObjectImpl.Container implements St
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case PatternsPackage.STATE_PATTERN__STATE_CLASSES:
-			return stateClasses != null && !stateClasses.isEmpty();
+		case PatternsPackage.STATE_PATTERN__STATE_GROUPS:
+			return stateGroups != null && !stateGroups.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

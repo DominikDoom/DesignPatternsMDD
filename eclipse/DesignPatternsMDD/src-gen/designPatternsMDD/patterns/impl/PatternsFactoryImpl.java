@@ -69,6 +69,8 @@ public class PatternsFactoryImpl extends EFactoryImpl implements PatternsFactory
 			return createStatePattern();
 		case PatternsPackage.FACTORY_GROUP:
 			return createFactoryGroup();
+		case PatternsPackage.STATE_GROUP:
+			return createStateGroup();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -152,6 +154,16 @@ public class PatternsFactoryImpl extends EFactoryImpl implements PatternsFactory
 	public FactoryGroup createFactoryGroup() {
 		FactoryGroupImpl factoryGroup = new FactoryGroupImpl();
 		return factoryGroup;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StateGroup createStateGroup() {
+		StateGroupImpl stateGroup = new StateGroupImpl();
+		return stateGroup;
 	}
 
 	/**

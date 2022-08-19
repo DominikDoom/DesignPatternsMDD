@@ -257,6 +257,29 @@ public class PatternsItemProviderAdapterFactory extends PatternsAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link designPatternsMDD.patterns.StateGroup} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected StateGroupItemProvider stateGroupItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link designPatternsMDD.patterns.StateGroup}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createStateGroupAdapter() {
+		if (stateGroupItemProvider == null) {
+			stateGroupItemProvider = new StateGroupItemProvider(this);
+		}
+
+		return stateGroupItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -371,6 +394,8 @@ public class PatternsItemProviderAdapterFactory extends PatternsAdapterFactory
 			statePatternItemProvider.dispose();
 		if (factoryGroupItemProvider != null)
 			factoryGroupItemProvider.dispose();
+		if (stateGroupItemProvider != null)
+			stateGroupItemProvider.dispose();
 	}
 
 }

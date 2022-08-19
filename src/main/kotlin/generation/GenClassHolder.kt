@@ -6,5 +6,6 @@ import org.eclipse.emf.ecore.EClass
 data class GenClassHolder(
     val eClass: EClass,
     val usedPatterns: List<DesignPattern>,
-    val referenceClass: EClass? = null
+    val referenceName: String? = null,
+    val refList: List<String>? = null
 )

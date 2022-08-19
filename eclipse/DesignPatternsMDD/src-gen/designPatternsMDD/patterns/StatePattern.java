@@ -3,7 +3,6 @@
 package designPatternsMDD.patterns;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -15,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link designPatternsMDD.patterns.StatePattern#getStateClasses <em>State Classes</em>}</li>
+ *   <li>{@link designPatternsMDD.patterns.StatePattern#getStateGroups <em>State Groups</em>}</li>
  * </ul>
  *
  * @see designPatternsMDD.patterns.PatternsPackage#getStatePattern()
@@ -24,15 +23,15 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface StatePattern extends EObject {
 	/**
-	 * Returns the value of the '<em><b>State Classes</b></em>' reference list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.EClass}.
+	 * Returns the value of the '<em><b>State Groups</b></em>' containment reference list.
+	 * The list contents are of type {@link designPatternsMDD.patterns.StateGroup}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>State Classes</em>' reference list.
-	 * @see designPatternsMDD.patterns.PatternsPackage#getStatePattern_StateClasses()
-	 * @model required="true"
+	 * @return the value of the '<em>State Groups</em>' containment reference list.
+	 * @see designPatternsMDD.patterns.PatternsPackage#getStatePattern_StateGroups()
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	EList<EClass> getStateClasses();
+	EList<StateGroup> getStateGroups();
 
 } // StatePattern

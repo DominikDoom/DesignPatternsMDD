@@ -7,7 +7,8 @@ import org.eclipse.emf.ecore.EPackage
 
 abstract class DesignPattern {
     lateinit var ts: TypeSpec.Builder
-    var ref: EClass? = null
+    var referenceName: String? = null
+    var refList: List<String>? = null
 
     abstract fun generate(e: EClass, pkg: EPackage, gen: Generator): TypeSpec.Builder
 }

@@ -334,13 +334,13 @@ public interface PatternsPackage extends EPackage {
 	int STATE_PATTERN = 6;
 
 	/**
-	 * The feature id for the '<em><b>State Classes</b></em>' reference list.
+	 * The feature id for the '<em><b>State Groups</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_PATTERN__STATE_CLASSES = 0;
+	int STATE_PATTERN__STATE_GROUPS = 0;
 
 	/**
 	 * The number of structural features of the '<em>State Pattern</em>' class.
@@ -405,6 +405,52 @@ public interface PatternsPackage extends EPackage {
 	 * @ordered
 	 */
 	int FACTORY_GROUP_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link designPatternsMDD.patterns.impl.StateGroupImpl <em>State Group</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see designPatternsMDD.patterns.impl.StateGroupImpl
+	 * @see designPatternsMDD.patterns.impl.PatternsPackageImpl#getStateGroup()
+	 * @generated
+	 */
+	int STATE_GROUP = 8;
+
+	/**
+	 * The feature id for the '<em><b>Main Class</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_GROUP__MAIN_CLASS = 0;
+
+	/**
+	 * The feature id for the '<em><b>State Classes</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_GROUP__STATE_CLASSES = 1;
+
+	/**
+	 * The number of structural features of the '<em>State Group</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_GROUP_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>State Group</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_GROUP_OPERATION_COUNT = 0;
 
 	/**
 	 * Returns the meta object for class '{@link designPatternsMDD.patterns.PatternRoot <em>Pattern Root</em>}'.
@@ -598,15 +644,15 @@ public interface PatternsPackage extends EPackage {
 	EClass getStatePattern();
 
 	/**
-	 * Returns the meta object for the reference list '{@link designPatternsMDD.patterns.StatePattern#getStateClasses <em>State Classes</em>}'.
+	 * Returns the meta object for the containment reference list '{@link designPatternsMDD.patterns.StatePattern#getStateGroups <em>State Groups</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>State Classes</em>'.
-	 * @see designPatternsMDD.patterns.StatePattern#getStateClasses()
+	 * @return the meta object for the containment reference list '<em>State Groups</em>'.
+	 * @see designPatternsMDD.patterns.StatePattern#getStateGroups()
 	 * @see #getStatePattern()
 	 * @generated
 	 */
-	EReference getStatePattern_StateClasses();
+	EReference getStatePattern_StateGroups();
 
 	/**
 	 * Returns the meta object for class '{@link designPatternsMDD.patterns.FactoryGroup <em>Factory Group</em>}'.
@@ -639,6 +685,38 @@ public interface PatternsPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFactoryGroup_FactoryClasses();
+
+	/**
+	 * Returns the meta object for class '{@link designPatternsMDD.patterns.StateGroup <em>State Group</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>State Group</em>'.
+	 * @see designPatternsMDD.patterns.StateGroup
+	 * @generated
+	 */
+	EClass getStateGroup();
+
+	/**
+	 * Returns the meta object for the reference '{@link designPatternsMDD.patterns.StateGroup#getMainClass <em>Main Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Main Class</em>'.
+	 * @see designPatternsMDD.patterns.StateGroup#getMainClass()
+	 * @see #getStateGroup()
+	 * @generated
+	 */
+	EReference getStateGroup_MainClass();
+
+	/**
+	 * Returns the meta object for the reference list '{@link designPatternsMDD.patterns.StateGroup#getStateClasses <em>State Classes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>State Classes</em>'.
+	 * @see designPatternsMDD.patterns.StateGroup#getStateClasses()
+	 * @see #getStateGroup()
+	 * @generated
+	 */
+	EReference getStateGroup_StateClasses();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -822,12 +900,12 @@ public interface PatternsPackage extends EPackage {
 		EClass STATE_PATTERN = eINSTANCE.getStatePattern();
 
 		/**
-		 * The meta object literal for the '<em><b>State Classes</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>State Groups</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference STATE_PATTERN__STATE_CLASSES = eINSTANCE.getStatePattern_StateClasses();
+		EReference STATE_PATTERN__STATE_GROUPS = eINSTANCE.getStatePattern_StateGroups();
 
 		/**
 		 * The meta object literal for the '{@link designPatternsMDD.patterns.impl.FactoryGroupImpl <em>Factory Group</em>}' class.
@@ -854,6 +932,32 @@ public interface PatternsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FACTORY_GROUP__FACTORY_CLASSES = eINSTANCE.getFactoryGroup_FactoryClasses();
+
+		/**
+		 * The meta object literal for the '{@link designPatternsMDD.patterns.impl.StateGroupImpl <em>State Group</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see designPatternsMDD.patterns.impl.StateGroupImpl
+		 * @see designPatternsMDD.patterns.impl.PatternsPackageImpl#getStateGroup()
+		 * @generated
+		 */
+		EClass STATE_GROUP = eINSTANCE.getStateGroup();
+
+		/**
+		 * The meta object literal for the '<em><b>Main Class</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STATE_GROUP__MAIN_CLASS = eINSTANCE.getStateGroup_MainClass();
+
+		/**
+		 * The meta object literal for the '<em><b>State Classes</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STATE_GROUP__STATE_CLASSES = eINSTANCE.getStateGroup_StateClasses();
 
 	}
 

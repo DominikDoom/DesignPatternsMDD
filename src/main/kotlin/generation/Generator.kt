@@ -4,11 +4,10 @@ import com.grosner.kpoet.*
 import com.squareup.javapoet.ClassName
 import designPatternsMDD.DesignPatternsMDDPackage
 import designPatternsMDD.Root
+import designPatternsMDD.patterns.FactoryGroup
 import designPatternsMDD.patterns.ObserverPair
-import generation.patterns.Builder
-import generation.patterns.DesignPattern
-import generation.patterns.Observer
-import generation.patterns.Singleton
+import designPatternsMDD.patterns.StateGroup
+import generation.patterns.*
 import generation.submethods.*
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EClass
@@ -31,6 +30,10 @@ class Generator(private val outPath: Path) {
     private var observerPairs: Iterable<ObserverPair>? = null
     private var observers: Iterable<EClass>? = null
     private var observables: Iterable<EClass>? = null
+    private var factoryGroups: Iterable<FactoryGroup>? = null
+    private var stateGroups: Iterable<StateGroup>? = null
+    private var mainStateClasses: Iterable<EClass>? = null
+    private var stateClasses: Iterable<EClass>? = null
 
     fun addFile(file: File) {
         files.add(file)
@@ -69,6 +72,10 @@ class Generator(private val outPath: Path) {
             observerPairs = root.patterns?.observerPattern?.obseverPairs
             observables = observerPairs?.map { it.observable }
             observers = observerPairs?.flatMap { it.observers }
+            factoryGroups = root.patterns?.factoryPattern?.factoryGroups
+            stateGroups = root.patterns?.statePattern?.stateGroups
+            mainStateClasses = stateGroups?.map { it.mainClass }
+            stateClasses = stateGroups?.flatMap { it.stateClasses }
 
             // Generate the modeled packages & classes
             root.packages.packages.forEach { pkg ->
@@ -84,7 +91,8 @@ class Generator(private val outPath: Path) {
 
     private fun EClass.getPatterns(): GenClassHolder {
         val patterns = mutableListOf<DesignPattern>()
-        var referenceClass: EClass? = null
+        var referenceName: String? = null
+        var refClassList: List<String>? = null
 
         // Builders
         if (builders != null && builders!!.contains(this)) {
@@ -101,15 +109,28 @@ class Generator(private val outPath: Path) {
             }
             if (observers != null && observers!!.contains(this)) {
                 patterns.add(Observer())
-                referenceClass = observerPairs!!.find { it.observers.contains(this) }!!.observable
+                referenceName = observerPairs!!.find { it.observers.contains(this) }!!.observable.genName
+            }
+        }
+        // Factories
+        if (factoryGroups != null && factoryGroups!!.any { it.factoryClasses.contains(this) }) {
+            patterns.add(Factory())
+            val group = factoryGroups!!.find { it.factoryClasses.contains(this) }!!
+            referenceName = group.groupName
+            refClassList = group.factoryClasses.map { it.name }
+        }
+        // States
+        if (stateGroups != null) {
+            if (mainStateClasses != null && mainStateClasses!!.contains(this)) {
+                patterns.add(State())
+            }
+            if (stateClasses != null && stateClasses!!.contains(this)) {
+                patterns.add(State())
+                referenceName = stateGroups!!.find { it.stateClasses.contains(this) }!!.mainClass.name
             }
         }
 
-        return if (referenceClass != null) {
-            GenClassHolder(this, patterns, referenceClass)
-        } else {
-            GenClassHolder(this, patterns)
-        }
+        return GenClassHolder(this, patterns, referenceName, refClassList)
     }
 
     private fun GenClassHolder.generate(pkg: EPackage) {
@@ -157,7 +178,8 @@ class Generator(private val outPath: Path) {
                 // Generate all used patterns that don't live in their own file
                 usedPatterns.forEach { pattern: DesignPattern ->
                     pattern.ts = this
-                    pattern.ref = referenceClass
+                    pattern.referenceName = referenceName
+                    pattern.refList = refList
                     pattern.generate(eClass, pkg, this@Generator)
                 }
 
@@ -181,7 +203,7 @@ class Generator(private val outPath: Path) {
         file.writeFile(code)
     }
 
-    private fun saveExtendable(name: String, pkg: String, code: String) {
+    fun saveExtendable(name: String, pkg: String, code: String) {
         val file = getOutFile(name, pkg)
 
         if (file.isFile) {

@@ -74,6 +74,13 @@ public class PatternsPackageImpl extends EPackageImpl implements PatternsPackage
 	private EClass factoryGroupEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass stateGroupEClass = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -321,7 +328,7 @@ public class PatternsPackageImpl extends EPackageImpl implements PatternsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getStatePattern_StateClasses() {
+	public EReference getStatePattern_StateGroups() {
 		return (EReference) statePatternEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -350,6 +357,33 @@ public class PatternsPackageImpl extends EPackageImpl implements PatternsPackage
 	 */
 	public EReference getFactoryGroup_FactoryClasses() {
 		return (EReference) factoryGroupEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getStateGroup() {
+		return stateGroupEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getStateGroup_MainClass() {
+		return (EReference) stateGroupEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getStateGroup_StateClasses() {
+		return (EReference) stateGroupEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -405,11 +439,15 @@ public class PatternsPackageImpl extends EPackageImpl implements PatternsPackage
 		createEReference(factoryPatternEClass, FACTORY_PATTERN__FACTORY_GROUPS);
 
 		statePatternEClass = createEClass(STATE_PATTERN);
-		createEReference(statePatternEClass, STATE_PATTERN__STATE_CLASSES);
+		createEReference(statePatternEClass, STATE_PATTERN__STATE_GROUPS);
 
 		factoryGroupEClass = createEClass(FACTORY_GROUP);
 		createEAttribute(factoryGroupEClass, FACTORY_GROUP__GROUP_NAME);
 		createEReference(factoryGroupEClass, FACTORY_GROUP__FACTORY_CLASSES);
+
+		stateGroupEClass = createEClass(STATE_GROUP);
+		createEReference(stateGroupEClass, STATE_GROUP__MAIN_CLASS);
+		createEReference(stateGroupEClass, STATE_GROUP__STATE_CLASSES);
 	}
 
 	/**
@@ -499,8 +537,8 @@ public class PatternsPackageImpl extends EPackageImpl implements PatternsPackage
 
 		initEClass(statePatternEClass, StatePattern.class, "StatePattern", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getStatePattern_StateClasses(), theEcorePackage.getEClass(), null, "StateClasses", null, 1, -1,
-				StatePattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+		initEReference(getStatePattern_StateGroups(), this.getStateGroup(), null, "StateGroups", null, 1, -1,
+				StatePattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(factoryGroupEClass, FactoryGroup.class, "FactoryGroup", !IS_ABSTRACT, !IS_INTERFACE,
@@ -510,6 +548,15 @@ public class PatternsPackageImpl extends EPackageImpl implements PatternsPackage
 				!IS_DERIVED, IS_ORDERED);
 		initEReference(getFactoryGroup_FactoryClasses(), theEcorePackage.getEClass(), null, "FactoryClasses", null, 1,
 				-1, FactoryGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(stateGroupEClass, StateGroup.class, "StateGroup", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getStateGroup_MainClass(), theEcorePackage.getEClass(), null, "MainClass", null, 1, 1,
+				StateGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getStateGroup_StateClasses(), theEcorePackage.getEClass(), null, "StateClasses", null, 1, -1,
+				StateGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 

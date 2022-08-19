@@ -14,7 +14,7 @@ import util.genName
 class Observer: DesignPattern() {
     override fun generate(e: EClass, pkg: EPackage, gen: Generator): TypeSpec.Builder {
         // Generate interface if it doesn't exist yet
-        if (ref == null) {
+        if (referenceName == null) {
             val inter = javaFile(pkg.name) {
                 `interface`("I${e.genName}") {
                     modifiers(public)
@@ -28,8 +28,8 @@ class Observer: DesignPattern() {
         }
 
         // Generate observer code in class
-        if (ref != null) {
-            val interfaceName = ClassName.get(pkg.name, "I${ref!!.genName}")
+        if (referenceName != null) {
+            val interfaceName = ClassName.get(pkg.name, "I$referenceName")
             // Observer
             ts.apply {
                 implements(interfaceName)
