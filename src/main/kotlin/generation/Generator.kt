@@ -134,8 +134,6 @@ class Generator(private val outPath: Path) {
     }
 
     private fun GenClassHolder.generate(pkg: EPackage) {
-        // TODO generate patterns
-
         // Generate the class itself
         val kPoetCode = javaFile(pkg.name) {
             `class`(eClass.genName) {
