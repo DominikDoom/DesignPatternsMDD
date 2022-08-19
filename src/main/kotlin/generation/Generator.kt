@@ -90,47 +90,47 @@ class Generator(private val outPath: Path) {
     }
 
     private fun EClass.getPatterns(): GenClassHolder {
-        val patterns = mutableListOf<DesignPattern>()
-        var referenceName: String? = null
-        var refClassList: List<String>? = null
+        val patterns = mutableMapOf<DesignPattern, References?>()
+        var referenceName: String?
+        val refClassList: List<String>?
 
         // Builders
         if (builders != null && builders!!.contains(this)) {
-            patterns.add(Builder())
+            patterns[Builder()] = null
         }
         // Singletons
         if (singletons != null && singletons!!.contains(this)) {
-            patterns.add(Singleton())
+            patterns[Singleton()] = null
         }
         // Observers
         if (observerPairs != null) {
             if (observables != null && observables!!.contains(this)) {
-                patterns.add(Observer())
+                patterns[Observer()] = null
             }
             if (observers != null && observers!!.contains(this)) {
-                patterns.add(Observer())
                 referenceName = observerPairs!!.find { it.observers.contains(this) }!!.observable.genName
+                patterns[Observer()] = References(referenceName, null)
             }
         }
         // Factories
         if (factoryGroups != null && factoryGroups!!.any { it.factoryClasses.contains(this) }) {
-            patterns.add(Factory())
             val group = factoryGroups!!.find { it.factoryClasses.contains(this) }!!
             referenceName = group.groupName
             refClassList = group.factoryClasses.map { it.name }
+            patterns[Factory()] = References(referenceName, refClassList)
         }
         // States
         if (stateGroups != null) {
             if (mainStateClasses != null && mainStateClasses!!.contains(this)) {
-                patterns.add(State())
+                patterns[State()] = null
             }
             if (stateClasses != null && stateClasses!!.contains(this)) {
-                patterns.add(State())
                 referenceName = stateGroups!!.find { it.stateClasses.contains(this) }!!.mainClass.name
+                patterns[State()] = References(referenceName, null)
             }
         }
 
-        return GenClassHolder(this, patterns, referenceName, refClassList)
+        return GenClassHolder(this, patterns)
     }
 
     private fun GenClassHolder.generate(pkg: EPackage) {
@@ -174,10 +174,10 @@ class Generator(private val outPath: Path) {
                 extends(ClassName.get(pkg.name, eClass.genName))
 
                 // Generate all used patterns that don't live in their own file
-                usedPatterns.forEach { pattern: DesignPattern ->
+                usedPatterns.forEach { (pattern, references) ->
                     pattern.ts = this
-                    pattern.referenceName = referenceName
-                    pattern.refList = refList
+                    pattern.referenceName = references?.refName
+                    pattern.refList = references?.refList
                     pattern.generate(eClass, pkg, this@Generator)
                 }
 

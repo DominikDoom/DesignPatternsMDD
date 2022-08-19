@@ -3,6 +3,7 @@ package generation.submethods
 import com.grosner.kpoet.*
 import com.squareup.javapoet.MethodSpec
 import com.squareup.javapoet.TypeSpec
+import generation.References
 import generation.patterns.DesignPattern
 import generation.patterns.Singleton
 import org.eclipse.emf.common.util.EList
@@ -10,7 +11,7 @@ import org.eclipse.emf.ecore.EAttribute
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.EReference
 
-fun TypeSpec.Builder.generateEmptySuperConstructor(usedPatterns: List<DesignPattern>): TypeSpec.Builder {
+fun TypeSpec.Builder.generateEmptySuperConstructor(usedPatterns: Map<DesignPattern, References?>): TypeSpec.Builder {
     return constructor {
         patternDependentModifiers(usedPatterns)
     }
@@ -90,7 +91,7 @@ fun TypeSpec.Builder.generateSuperConstructor(
     a: EList<EAttribute>,
     r: EList<EReference>,
     pkg: EPackage,
-    usedPatterns: List<DesignPattern>
+    usedPatterns: Map<DesignPattern, References?>
 ): TypeSpec.Builder {
     return constructor(
         *getParamsFromAttrs(a),
@@ -108,8 +109,8 @@ fun TypeSpec.Builder.generateSuperConstructor(
     }
 }
 
-fun MethodSpec.Builder.patternDependentModifiers(usedPatterns: List<DesignPattern>): MethodSpec.Builder {
-    if (usedPatterns.any { it is Singleton })
+fun MethodSpec.Builder.patternDependentModifiers(usedPatterns: Map<DesignPattern, References?>): MethodSpec.Builder {
+    if (usedPatterns.any { it.key is Singleton })
         modifiers(private)
     else
         modifiers(public)
