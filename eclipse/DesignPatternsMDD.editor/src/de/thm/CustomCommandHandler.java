@@ -87,8 +87,7 @@ public final class CustomCommandHandler extends AbstractHandler {
 			return null;
 		}
 
-		// Workbench information - crashes (NullPointer/separate Thread!) if called in
-		// the Job!
+		// Workbench information - crashes (NullPointer/separate Thread!) if called in the Job!
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 		IEditorInput input = page.getActiveEditor() == null ? null : page.getActiveEditor().getEditorInput();
 
@@ -127,7 +126,6 @@ public final class CustomCommandHandler extends AbstractHandler {
 					} else if (firstElement instanceof IFolder) {
 						// adapt to IFolder and fetch information from selection
 						IFolder iFolder = (IFolder) ((IAdaptable) firstElement).getAdapter(IFolder.class);
-						LogUtils.logInfo(iFolder.getLocationURI().toString());
 						file = new File(iFolder.getLocationURI());
 						
 					} else {
