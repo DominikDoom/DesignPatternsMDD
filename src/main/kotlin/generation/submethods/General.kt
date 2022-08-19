@@ -15,8 +15,8 @@ import util.genName
 import util.poetTypeName
 
 fun TypeSpec.Builder.genExtendIfNeeded(e: EClass, pkg: EPackage): TypeSpec.Builder {
-    return if (e.eAllSuperTypes.isNotEmpty()) {
-        val typeName = ClassName.get(pkg.name, e.eAllSuperTypes.first().genName)
+    return if (e.eSuperTypes.isNotEmpty()) {
+        val typeName = ClassName.get(pkg.name, e.eSuperTypes.first().genName)
         extends(typeName)
     } else {
         this

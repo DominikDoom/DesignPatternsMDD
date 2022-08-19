@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<designPatternsMDD:Root xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:designPatternsMDD="http://www.example.org/designPatternsMDD" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore">
+  <Packages>
+    <Packages name="thm.de.patternexample">
+      <eClassifiers xsi:type="ecore:EClass" name="Database">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="username">
+          <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="url">
+          <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="port">
+          <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="password">
+          <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EClass" name="ContentCreator" eSuperTypes="//@Packages/@Packages.0/User">
+        <eStructuralFeatures xsi:type="ecore:EReference" name="follower" upperBound="-1" eType="//@Packages/@Packages.0/ContentConsumer"/>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastUpload">
+          <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xsi:type="ecore:EReference" name="uploads" upperBound="-1" eType="//@Packages/@Packages.0/Upload"/>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EClass" name="User" abstract="true">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="name">
+          <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="age">
+          <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EClass" name="NotifierBot"/>
+      <eClassifiers xsi:type="ecore:EClass" name="Teenagers" eSuperTypes="//@Packages/@Packages.0/ContentConsumer"/>
+      <eClassifiers xsi:type="ecore:EClass" name="Kids" eSuperTypes="//@Packages/@Packages.0/ContentConsumer"/>
+      <eClassifiers xsi:type="ecore:EClass" name="Adult" eSuperTypes="//@Packages/@Packages.0/ContentConsumer"/>
+      <eClassifiers xsi:type="ecore:EClass" name="ContentConsumer" abstract="true" eSuperTypes="//@Packages/@Packages.0/User">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="hoursWatched">
+          <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xsi:type="ecore:EReference" name="favoriteCreator" eType="//@Packages/@Packages.0/ContentCreator"/>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EClass" name="Upload" abstract="true">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="fsk">
+          <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="views">
+          <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EClass" name="Video" eSuperTypes="//@Packages/@Packages.0/Upload">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="length">
+          <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="title">
+          <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="description">
+          <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EClass" name="Audio" eSuperTypes="//@Packages/@Packages.0/Upload">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="length">
+          <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="volume">
+          <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EClass" name="Blog" eSuperTypes="//@Packages/@Packages.0/Upload">
+        <eStructuralFeatures xsi:type="ecore:EAttribute" name="wordcount">
+          <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EClass" name="ConnectedState"/>
+      <eClassifiers xsi:type="ecore:EClass" name="NotConnetedState"/>
+      <eClassifiers xsi:type="ecore:EClass" name="UnknownState"/>
+    </Packages>
+  </Packages>
+  <Patterns>
+    <observerPattern>
+      <ObseverPairs Observable="//@Packages/@Packages.0/ContentCreator" Observers="//@Packages/@Packages.0/ContentConsumer //@Packages/@Packages.0/NotifierBot"/>
+    </observerPattern>
+    <singletonPattern SingletonClasses="//@Packages/@Packages.0/Database"/>
+    <builderPattern BuilderClasses="//@Packages/@Packages.0/ContentCreator"/>
+    <factoryPattern>
+      <FactoryGroups GroupName="Uploadable" FactoryClasses="//@Packages/@Packages.0/Audio //@Packages/@Packages.0/Blog //@Packages/@Packages.0/Video"/>
+    </factoryPattern>
+    <statePattern>
+      <StateGroups MainClass="//@Packages/@Packages.0/Database" StateClasses="//@Packages/@Packages.0/ConnectedState //@Packages/@Packages.0/NotConnetedState //@Packages/@Packages.0/UnknownState"/>
+    </statePattern>
+  </Patterns>
+</designPatternsMDD:Root>
