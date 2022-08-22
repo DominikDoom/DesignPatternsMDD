@@ -17,9 +17,10 @@ private val File.validMDDFileType: Boolean
     }
 
 /**
- * The main function expects two arguments:
+ * The main function expects three arguments:
  * 1. The path to the ecore/metamodel input file or directory
  * 2. The path to the codegen output directory
+ * 3. A y/n flag to indicate if the output directory should be cleaned before codegen
  * */
 fun main(args: Array<String>) {
     // Get properties
@@ -69,23 +70,24 @@ fun main(args: Array<String>) {
         }
     }
 
-    // Generate code
-    if (generator.hasFiles()) {
-        // Clean output folder if requested
-        if (cleanOutput && outputPath.exists() && outputPath.isDirectory()) {
-            cleanDirectory(outputPath.toFile())
-            println("${ANSI_YELLOW}Output directory cleaned by request$ANSI_RESET")
-        }
-
-        // Start generation
-        generator.generate()
-    } else {
+    // Check if files were added
+    if (!generator.hasFiles()) {
         println("${ANSI_YELLOW}No files were generated$ANSI_RESET")
+        return
     }
+
+    // Clean output folder if requested
+    if (cleanOutput && outputPath.exists() && outputPath.isDirectory()) {
+        cleanDirectory(outputPath.toFile())
+        println("${ANSI_YELLOW}Output directory cleaned by request$ANSI_RESET")
+    }
+
+    // Start generation
+    generator.generate()
 }
 
 fun cleanDirectory(dir: File) {
-    for (file in dir.listFiles()) {
+    for (file in dir.listFiles()!!) {
         if (file.isDirectory) cleanDirectory(file)
         file.delete()
     }
