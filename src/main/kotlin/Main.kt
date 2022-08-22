@@ -44,6 +44,7 @@ fun main(args: Array<String>) {
     // Setup generator
     val generator = Generator(outputPath)
 
+    // Add file(s) depending on if the input is a file or directory
     when {
         inFile.isDirectory -> {
             val fileList = inFile.listFiles()!!
@@ -86,6 +87,9 @@ fun main(args: Array<String>) {
     generator.generate()
 }
 
+/**
+ * Recursively deletes all files and directories in the given directory.
+ * */
 fun cleanDirectory(dir: File) {
     for (file in dir.listFiles()!!) {
         if (file.isDirectory) cleanDirectory(file)
@@ -93,6 +97,14 @@ fun cleanDirectory(dir: File) {
     }
 }
 
+/**
+ * Converts a string argument to a boolean.
+ * Accepts the following notations for true:
+ *
+ * y | yes | true | 1
+ *
+ * All other values are considered false.
+ * */
 fun getBoolArg(arg: String): Boolean {
     return arg.lowercase(Locale.getDefault()) == "y"
             || arg.lowercase(Locale.getDefault()) == "yes"
